@@ -1,18 +1,9 @@
 import React from "react";
 import * as Icons from "lucide-react";
 import { cn } from "../../lib/utils";
+import { IconProps } from "../../types/ui";
 
 type LucideIconComponent = React.FC<React.SVGProps<SVGSVGElement>>;
-
-export interface IconProps {
-  name: keyof typeof Icons;
-  size?: "sm" | "md" | "lg" | number;
-  color?: string;
-  label?: string;
-  onClick?: () => void;
-  className?: string;
-  hoverEffect?: boolean;
-}
 
 const sizeMap: Record<string, number> = {
   sm: 16,

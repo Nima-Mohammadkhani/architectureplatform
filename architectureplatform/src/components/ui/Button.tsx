@@ -3,21 +3,7 @@ import { Loader2 } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { Link } from "react-router-dom";
 import Icon from "./Icon";
-
-export interface ButtonProps {
-  title?: string;
-  onClick?: () => void;
-  link?: string;
-  variant?: "primary" | "secondary" | "outline" | "danger" | string;
-  size?: "sm" | "md" | "lg" | "icon" | string;
-  className?: string;
-  textClassName?: string;
-  disabled?: boolean;
-  loading?: boolean;
-  iconLeft?: React.ReactNode;
-  iconRight?: React.ReactNode;
-  fullWidth?: boolean;
-}
+import { ButtonProps } from "../../types/ui";
 
 const Button: React.FC<ButtonProps> = ({
   title,

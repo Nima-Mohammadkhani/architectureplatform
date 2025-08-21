@@ -1,18 +1,7 @@
 import React, { forwardRef, useState } from "react";
 import { cn } from "../../lib/utils";
 import { Eye, EyeOff } from "lucide-react";
-
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  error?: string;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-  secureTextEntry?: boolean;
-  secureToggle?: boolean;
-  containerClassName?: string;
-  inputClassName?: string;
-}
+import { InputProps } from "../../types/ui";
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
