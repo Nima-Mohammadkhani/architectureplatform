@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Icon from "./ui/Icon";
@@ -65,7 +65,7 @@ const Header: React.FC = () => {
                 className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 group ${
                   isActive(item.path)
                     ? "text-[#eab308]"
-                    : "text-gray-700 hover:text-[#eab308]"
+                    : "text-black hover:text-[#eab308]"
                 }`}
               >
                 {item.name}
@@ -85,7 +85,7 @@ const Header: React.FC = () => {
           <div className="flex items-center gap-2">
             <Link
               to="/cart"
-              className="relative p-3 text-gray-700 hover:text-white transition-all duration-300 hover:bg-[#eab308] rounded-lg group"
+              className="relative p-3 text-black hover:text-white transition-all duration-300 hover:bg-[#eab308] rounded-lg group"
             >
               <Icon
                 name="ShoppingCart"
@@ -101,18 +101,18 @@ const Header: React.FC = () => {
             </Link>
 
             <div className="flex items-center gap-2">
-              {user ? (
+              {!user ? (
                 <div className="flex items-center gap-2">
                   <Link
                     to="/profile"
-                    className="p-3 text-gray-700 hover:text-white hover:bg-[#eab308] rounded-lg transition-all duration-300 group"
+                    className="p-3 text-black hover:text-white hover:bg-[#eab308] rounded-lg transition-all duration-300 group"
                   >
                     <Icon
                       name="User"
                       className="w-5 h-5 group-hover:scale-110 transition-transform duration-300"
                     />
                   </Link>
-                  <button className="text-sm text-gray-700 hover:text-white hover:bg-[#eab308] px-3 py-2 rounded-lg transition-all duration-300 font-medium">
+                  <button className="text-sm text-black hover:text-white hover:bg-[#eab308] px-3 py-2 rounded-lg transition-all duration-300 font-medium">
                     خروج
                   </button>
                 </div>
@@ -129,7 +129,7 @@ const Header: React.FC = () => {
 
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-3 text-gray-700 hover:text-white hover:bg-[#eab308] rounded-lg transition-all duration-300"
+              className="lg:hidden p-3 text-black hover:text-white hover:bg-[#eab308] rounded-lg transition-all duration-300"
             >
               {isMenuOpen ? (
                 <Icon name="X" className="w-6 h-6" />
@@ -160,7 +160,7 @@ const Header: React.FC = () => {
                       className={`block px-4 py-3 rounded-lg transition-all duration-300 ${
                         active
                           ? "bg-[#eab308] text-white font-medium"
-                          : "text-gray-700 hover:text-[#eab308]"
+                          : "text-black hover:text-[#eab308]"
                       }`}
                     >
                       {item.name}

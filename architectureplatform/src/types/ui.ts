@@ -36,3 +36,14 @@ export interface InputProps
   containerClassName?: string;
   inputClassName?: string;
 }
+
+export interface Slide {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  ctaText: string;
+  ctaLink: string;
+  category: string;
+}
