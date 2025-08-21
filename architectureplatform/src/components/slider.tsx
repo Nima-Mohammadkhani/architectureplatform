@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import Icon from "./ui/Icon";
-import { Slide } from "../types/ui";
+import { ISlide } from "../types/ui";
 import Button from "./ui/Button";
 
-const slides: Slide[] = [
+const slides: ISlide[] = [
   {
     id: 1,
     title: "طراحی معماری مدرن",
@@ -165,22 +165,14 @@ const Slider = () => {
       <Button
         onClick={prevSlide}
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-3 rounded-full transition-all duration-300 hover:scale-110 group"
-      >
-        <Icon
-          name="ChevronLeft"
-          className="w-6 h-6 group-hover:translate-x-1 transition-transform"
-        />
-      </Button>
+        iconRight="ChevronLeft"
+      />
 
       <Button
         onClick={nextSlide}
         className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white p-3 rounded-full transition-all duration-300 hover:scale-110 group"
-      >
-        <Icon
-          name="ChevronRight"
-          className="w-6 h-6 group-hover:-translate-x-1 transition-transform"
-        />
-      </Button>
+        iconRight="ChevronRight"
+      />
 
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
         {slides.map((_, index) => (

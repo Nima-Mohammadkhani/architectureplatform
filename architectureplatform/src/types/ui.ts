@@ -37,7 +37,7 @@ export interface InputProps
   inputClassName?: string;
 }
 
-export interface Slide {
+export interface ISlide {
   id: number;
   title: string;
   subtitle: string;
@@ -46,4 +46,20 @@ export interface Slide {
   ctaText: string;
   ctaLink: string;
   category: string;
+}
+
+export interface Ielements {
+  id: number;
+  type: string;
+  size: string;
+  color: string;
+  position: string;
+  animation: {
+    y?: number[];
+    x?: number[];
+    rotate?: number[];
+    opacity?: number[];
+    scale?: number[];
+  };
+  duration: number;
 }

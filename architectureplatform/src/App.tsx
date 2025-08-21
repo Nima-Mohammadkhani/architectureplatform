@@ -3,6 +3,7 @@ import routes from "~react-pages";
 import PWABadge from "./PWABadge.tsx";
 import Header from "./components/header.tsx";
 import Footer from "./components/footer.tsx";
+import FloatingElements from "./components/floatingElements.tsx";
 
 function AppRoutes() {
   const element = useRoutes(routes);
@@ -14,6 +15,7 @@ function App() {
     <BrowserRouter>
       <PWABadge />
       <div className="w-full min-h-screen flex flex-col bg-base-200">
+        <FloatingElements />
         <Header />
         <AppRoutes />
         <Footer />
