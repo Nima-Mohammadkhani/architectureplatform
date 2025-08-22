@@ -7,6 +7,8 @@ import FloatingElements from "./components/floatingElements.tsx";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./components/ui/errorFallback.tsx";
 import { ToastContainer } from "react-toastify";
+import Scroll from "./components/ui/scroll.tsx";
+import ScrollToTop from "./components/ui/scrollToTop.tsx";
 
 function AppRoutes() {
   const element = useRoutes(routes);
@@ -25,6 +27,8 @@ function App() {
           <Footer />
         </div>
         <ToastContainer />
+        <Scroll />
+        <ScrollToTop />
       </ErrorBoundary>
     </BrowserRouter>
   );
