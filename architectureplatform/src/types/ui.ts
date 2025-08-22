@@ -105,3 +105,7 @@ export interface Iservice {
   features: string[];
   link: string;
 }
+
+export interface ErrorFallbackProps {
+  error: Error;
+}
