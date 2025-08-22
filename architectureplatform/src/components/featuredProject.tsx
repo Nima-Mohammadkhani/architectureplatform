@@ -52,7 +52,7 @@ const FeaturedProjects = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {featuredProjects.map((project, index) => (
-            <Card project={project} index={index} type={"topPortfolios"} />
+            <Card key={project.id} project={project} index={index} type={"topPortfolios"} />
           ))}
         </div>
 
