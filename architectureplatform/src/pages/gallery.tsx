@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Card from "../components/ui/card";
 import { Icategories, Iprojects } from "../types/ui";
 import Icon from "../components/ui/Icon";
+import Input from "../components/ui/Input";
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedProject, setSelectedProject] = useState<Iprojects | null>(
@@ -26,13 +27,12 @@ const Gallery = () => {
       area: "450 متر مربع",
       year: "2024",
       location: "شمال ایران",
-      image:
-        "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/image/slider/1.webp",
       description: "طراحی ویلای مدرن با استفاده از مصالح محلی و معماری معاصر",
       gallery: [
-        "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/2029667/pexels-photo-2029667.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "/image/slider/1.webp",
+        "/image/slider/2.jpeg",
+        "/image/slider/3.webp",
       ],
     },
     {
@@ -42,13 +42,9 @@ const Gallery = () => {
       area: "2500 متر مربع",
       year: "2023",
       location: "تهران",
-      image:
-        "https://images.pexels.com/photos/380768/pexels-photo-380768.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/image/slider/4.jpeg",
       description: "طراحی مجتمع تجاری با رویکرد پایدار و انرژی سبز",
-      gallery: [
-        "https://images.pexels.com/photos/380768/pexels-photo-380768.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg?auto=compress&cs=tinysrgb&w=800",
-      ],
+      gallery: ["/image/slider/4.jpeg", "/image/slider/1.webp"],
     },
     {
       id: 3,
@@ -57,13 +53,9 @@ const Gallery = () => {
       area: "120 متر مربع",
       year: "2024",
       location: "تهران",
-      image:
-        "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/image/slider/2.jpeg",
       description: "طراحی داخلی مینیمال با تأکید بر نور طبیعی",
-      gallery: [
-        "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/2029667/pexels-photo-2029667.jpeg?auto=compress&cs=tinysrgb&w=800",
-      ],
+      gallery: ["/image/slider/2.jpeg", "/image/slider/3.webp"],
     },
     {
       id: 4,
@@ -72,13 +64,9 @@ const Gallery = () => {
       area: "800 متر مربع",
       year: "2024",
       location: "طراحی مفهومی",
-      image:
-        "https://images.pexels.com/photos/2029667/pexels-photo-2029667.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/image/slider/3.webp",
       description: "طراحی مفهومی برای فضای کاری هوشمند و انطباق‌پذیر",
-      gallery: [
-        "https://images.pexels.com/photos/2029667/pexels-photo-2029667.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg?auto=compress&cs=tinysrgb&w=800",
-      ],
+      gallery: ["/image/slider/3.webp", "/image/slider/1.webp"],
     },
     {
       id: 5,
@@ -87,13 +75,9 @@ const Gallery = () => {
       area: "350 متر مربع",
       year: "2023",
       location: "اصفهان",
-      image:
-        "https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/image/slider/1.webp",
       description: "ترکیب معماری سنتی ایرانی با عناصر مدرن",
-      gallery: [
-        "https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg?auto=compress&cs=tinysrgb&w=800",
-        "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=800",
-      ],
+      gallery: ["/image/slider/1.webp", "/image/slider/1.webp"],
     },
     {
       id: 6,
@@ -102,12 +86,9 @@ const Gallery = () => {
       area: "200 متر مربع",
       year: "2023",
       location: "شیراز",
-      image:
-        "https://images.pexels.com/photos/2029667/pexels-photo-2029667.jpeg?auto=compress&cs=tinysrgb&w=800",
+      image: "/image/slider/3.webp",
       description: "طراحی داخلی رستوران با الهام از فرهنگ محلی",
-      gallery: [
-        "https://images.pexels.com/photos/2029667/pexels-photo-2029667.jpeg?auto=compress&cs=tinysrgb&w=800",
-      ],
+      gallery: ["/image/slider/3.webp"],
     },
   ];
 
@@ -127,7 +108,7 @@ const Gallery = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          className="text-center my-12"
         >
           <h1 className="text-4xl md:text-6xl font-light text-gray-900 mb-4">
             گالری <span className="text-yellow-600">پروژه‌ها</span>
@@ -143,7 +124,7 @@ const Gallery = () => {
               name="Search"
               className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
             />
-            <input
+            <Input
               type="text"
               placeholder="جستجو در پروژه‌ها..."
               value={searchTerm}
@@ -208,7 +189,7 @@ const Gallery = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/50 bg-opacity-80 z-50 flex items-center justify-center p-4"
             onClick={() => setSelectedProject(null)}
           >
             <motion.div

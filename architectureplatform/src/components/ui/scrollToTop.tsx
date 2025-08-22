@@ -49,10 +49,12 @@ const ScrollToTop = () => {
               repeat: Infinity,
               ease: "easeInOut",
             }}
+            className="flex justify-center items-center"
           >
             <Icon
               name="ChevronUp"
               className="w-6 h-6 mx-auto group-hover:text-black transition-colors duration-300"
+              size="lg"
             />
           </motion.div>
 

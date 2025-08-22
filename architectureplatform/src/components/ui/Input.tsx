@@ -27,7 +27,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
         <div
           className={cn(
-            "flex items-center border rounded-lg px-3 transition-colors",
+            "flex items-center border rounded-lg transition-colors",
             isFocused ? "border-primary" : "border-gray-300",
             error && "border-red-500"
           )}
