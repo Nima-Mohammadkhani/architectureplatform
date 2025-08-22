@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import Icon from "./ui/Icon";
+import Icon from "../ui/Icon";
 type NavItem = { name: string; path: string };
 
 const Header: React.FC = () => {
@@ -101,7 +101,7 @@ const Header: React.FC = () => {
             </Link>
 
             <div className="flex items-center gap-2">
-              {!user ? (
+              {user ? (
                 <div className="flex items-center gap-2">
                   <Link
                     to="/profile"

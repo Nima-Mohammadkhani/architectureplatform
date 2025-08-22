@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import Icon from "./ui/Icon";
+import Icon from "../ui/Icon";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 

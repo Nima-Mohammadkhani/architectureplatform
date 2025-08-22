@@ -69,6 +69,7 @@ export interface IcardProps {
   project?: IfeaturedProjects;
   index?: number;
   type?: string;
+  service?: Iservice;
 }
 
 export interface Istats {
@@ -85,4 +86,22 @@ export interface IfeaturedProjects {
   description: string;
   area: string;
   location: string;
+}
+
+export interface Itestimonial {
+  id: number;
+  name: string;
+  role: string;
+  company: string;
+  content: string;
+  rating: number;
+  avatar: string;
+}
+
+export interface Iservice {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  features: string[];
+  link: string;
 }
