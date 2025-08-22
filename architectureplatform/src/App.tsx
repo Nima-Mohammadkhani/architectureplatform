@@ -1,8 +1,8 @@
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import routes from "~react-pages";
 import PWABadge from "./PWABadge.tsx";
-import Header from "./components/header.tsx";
-import Footer from "./components/footer.tsx";
+import Header from "./components/ui/header.tsx";
+import Footer from "./components/ui/footer.tsx";
 import FloatingElements from "./components/floatingElements.tsx";
 
 function AppRoutes() {

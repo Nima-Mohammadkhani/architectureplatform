@@ -1,4 +1,5 @@
 import * as Icons from "lucide-react";
+import React from "react";
 
 export interface ButtonProps {
   title?: string;
@@ -62,4 +63,26 @@ export interface Ielements {
     scale?: number[];
   };
   duration: number;
+}
+
+export interface IcardProps {
+  project?: IfeaturedProjects;
+  index?: number;
+  type?: string;
+}
+
+export interface Istats {
+  number: string;
+  label: string;
+  icon: React.ReactNode;
+}
+
+export interface IfeaturedProjects {
+  id: number;
+  title: string;
+  category: string;
+  image: string;
+  description: string;
+  area: string;
+  location: string;
 }
