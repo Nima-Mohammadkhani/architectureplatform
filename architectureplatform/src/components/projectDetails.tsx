@@ -33,7 +33,7 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({
               متراژ (متر مربع)
             </label>
             <Input
-              type="number"
+              inputMode="numeric"
               min="1"
               value={area}
               onChange={(e) => setArea(e.target.value)}
