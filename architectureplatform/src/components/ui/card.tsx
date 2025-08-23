@@ -13,6 +13,12 @@ const Card: React.FC<IcardProps> = ({
   setSelectedProject,
   post,
   sortedProducts,
+  services,
+  setSelectedService,
+  selectedService,
+  consultants,
+  selectedConsultant,
+  setSelectedConsultant,
 }) => {
   const formatPrice = (price: number) =>
     new Intl.NumberFormat("fa-IR").format(price);
@@ -300,6 +306,73 @@ const Card: React.FC<IcardProps> = ({
                   />
                 </div>
               </motion.div>
+            ))}
+          </>
+        );
+
+      case "consultantType":
+        return (
+          <>
+            {services?.map((service) => (
+              <div
+                key={service.id}
+                onClick={() => setSelectedService(service.id)}
+                className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
+                  selectedService === service.id
+                    ? "border-yellow-600 bg-yellow-50"
+                    : "border-gray-200 hover:border-gray-300"
+                }`}
+              >
+                <h4 className="font-semibold text-gray-900 mb-2">
+                  {service.name}
+                </h4>
+                <p className="text-gray-600 text-sm mb-3">
+                  {service.description}
+                </p>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-yellow-600 font-medium">
+                    {formatPrice(service.price)} تومان
+                  </span>
+                  <span className="text-gray-500">{service.duration}</span>
+                </div>
+              </div>
+            ))}
+          </>
+        );
+
+      case "selectConsultant":
+        return (
+          <>
+            {consultants?.map((consultant) => (
+              <div
+                key={consultant.id}
+                onClick={() => setSelectedConsultant(consultant.id)}
+                className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
+                  selectedConsultant === consultant.id
+                    ? "border-yellow-600 bg-yellow-50"
+                    : "border-gray-200 hover:border-gray-300"
+                }`}
+              >
+                <div className="flex items-start space-x-3 space-x-reverse">
+                  <img
+                    src={consultant.image}
+                    alt={consultant.name}
+                    className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-semibold text-gray-900">
+                      {consultant.name}
+                    </h4>
+                    <p className="text-sm text-gray-600 mb-1">
+                      {consultant.speciality}
+                    </p>
+                    <div className="flex items-center justify-between text-xs text-gray-500">
+                      <span>{consultant.experience} تجربه</span>
+                      <span>⭐ {consultant.rating}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             ))}
           </>
         );

@@ -124,15 +124,37 @@ export interface IprojectTypes {
   basePrice: number;
 }
 
+export interface Iservices {
+  id: string;
+  name: string;
+  price: number;
+  duration: string;
+  description: string;
+  features: string[];
+}
+
 export interface IcardProps {
   project?: IfeaturedProjects | Iprojects;
   post?: IblogProduct;
   sortedProducts?: IsortedProducts;
   index?: number;
-  type?: "topPortfolios" | "service" | "gallery" | "blog" | "shop";
+  type?:
+    | "topPortfolios"
+    | "service"
+    | "gallery"
+    | "blog"
+    | "shop"
+    | "consultantType"
+    | "selectConsultant";
   service?: Iservice;
+  services?: Iservices | IConsultationService[];
   setSelectedProject?: (project?: IfeaturedProjects | Iprojects) => void;
+  setSelectedService?: (id?: string | number) => void;
+  selectedService?: string;
   categories?: Icategories[];
+  consultants?: IConsultant[];
+  selectedConsultant?: string;
+  setSelectedConsultant?: (id?: string) => void;
 }
 
 export interface Iservice {
@@ -289,4 +311,45 @@ export interface ICalculatorState {
   services: IServices;
   location: string;
   totalCost: number;
+}
+
+export interface IConsultationService {
+  id: string;
+  name: string;
+  price: number;
+  duration: string;
+  description: string;
+  features: string[];
+}
+
+export interface IConsultant {
+  id: string;
+  name: string;
+  speciality: string;
+  experience: string;
+  rating: number;
+  image: string;
+  bio: string;
+}
+
+export interface IConsultationFormData {
+  name: string;
+  email: string;
+  phone: string;
+  projectType: string;
+  budget: string;
+  timeline: string;
+  description: string;
+  preferredDate: string;
+  preferredTime: string;
+}
+
+
+
+export interface IContactFormProps {
+  handleSubmit: (e: React.FormEvent) => void;
+  formData: IConsultationFormData;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
+  selectedService: string;
+  selectedConsultant: string;
 }
