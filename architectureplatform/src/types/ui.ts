@@ -117,6 +117,13 @@ export type IsortedProducts = (
     }
 )[];
 
+export interface IprojectTypes {
+  id: string;
+  name: string;
+  icon: React.ReactNode;
+  basePrice: number;
+}
+
 export interface IcardProps {
   project?: IfeaturedProjects | Iprojects;
   post?: IblogProduct;
@@ -220,4 +227,66 @@ export interface IpageHeaderProps {
   pageName: string;
   title: string;
   description: string;
+}
+
+export interface IProjectType {
+  id: string;
+  name: string;
+  icon: React.ReactNode;
+  basePrice: number;
+}
+
+export interface IFinishLevel {
+  id: string;
+  name: string;
+  multiplier: number;
+}
+
+export interface ILocation {
+  id: string;
+  name: string;
+  multiplier: number;
+}
+
+export interface IService {
+  id: string;
+  name: string;
+  price: number;
+}
+
+export interface IServices {
+  architectural: boolean;
+  interior: boolean;
+  supervision: boolean;
+  consulting: boolean;
+}
+
+export interface IProjectDetailsProps {
+  type: "area" | "project" | "floor" | "level" | "location" | "feature";
+  area: string;
+  setArea: (area: string) => void;
+  floors: string;
+  setFloors: (floors: string) => void;
+  location: string;
+  setLocation: (location: string) => void;
+  locations: ILocation[];
+  services: IServices;
+  servicesList: IService[];
+  setServices: (services: IServices) => void;
+  projectTypes: IProjectType[];
+  setProjectType: (type: string) => void;
+  projectType: string;
+  finishLevels: IFinishLevel[];
+  finishLevel: string;
+  setFinishLevel: (level: string) => void;
+}
+
+export interface ICalculatorState {
+  projectType: string;
+  area: string;
+  floors: string;
+  finishLevel: string;
+  services: IServices;
+  location: string;
+  totalCost: number;
 }
