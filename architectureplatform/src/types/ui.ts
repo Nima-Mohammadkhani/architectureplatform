@@ -16,7 +16,6 @@ export interface ButtonProps {
   fullWidth?: boolean;
 }
 
-
 export interface IconProps {
   name: keyof typeof Icons;
   size?: "sm" | "md" | "lg" | number;
@@ -26,7 +25,6 @@ export interface IconProps {
   className?: string;
   hoverEffect?: boolean;
 }
-
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -40,7 +38,6 @@ export interface InputProps
   inputClassName?: string;
 }
 
-
 export interface AnimationConfig {
   y?: number[];
   x?: number[];
@@ -48,7 +45,6 @@ export interface AnimationConfig {
   opacity?: number[];
   scale?: number[];
 }
-
 
 export interface Ielements {
   id: number;
@@ -60,7 +56,6 @@ export interface Ielements {
   duration: number;
 }
 
-
 export interface BaseProject {
   id: number;
   title: string;
@@ -69,6 +64,19 @@ export interface BaseProject {
   description: string;
   area: string;
   location: string;
+}
+
+export interface IblogProduct {
+  id: number;
+  title: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  author: string;
+  date: string;
+  readTime: string;
+  image: string;
+  tags: string[];
 }
 
 export interface IfeaturedProjects extends BaseProject {
@@ -80,16 +88,45 @@ export interface Iprojects extends BaseProject {
   gallery: string[];
 }
 
+export type IsortedProducts = (
+  | {
+      id: number;
+      title: string;
+      category: string;
+      price: number;
+      originalPrice: number;
+      image: string;
+      rating: number;
+      reviews: number;
+      description: string;
+      inStock: boolean;
+      featured: boolean;
+    }
+  | {
+      id: number;
+      title: string;
+      category: string;
+      price: number;
+      image: string;
+      rating: number;
+      reviews: number;
+      description: string;
+      inStock: boolean;
+      featured: boolean;
+      originalPrice?: undefined;
+    }
+)[];
 
 export interface IcardProps {
   project?: IfeaturedProjects | Iprojects;
+  post?: IblogProduct;
+  sortedProducts?: IsortedProducts;
   index?: number;
-  type?: "topPortfolios" | "service" | "gallery";
+  type?: "topPortfolios" | "service" | "gallery" | "blog" | "shop";
   service?: Iservice;
   setSelectedProject?: (project?: IfeaturedProjects | Iprojects) => void;
   categories?: Icategories[];
 }
-
 
 export interface Iservice {
   icon: React.ReactNode;
@@ -99,13 +136,11 @@ export interface Iservice {
   link: string;
 }
 
-
 export interface Istats {
   number: string;
   label: string;
   icon: React.ReactNode;
 }
-
 
 export interface Itestimonial {
   id: number;
@@ -117,12 +152,10 @@ export interface Itestimonial {
   avatar: string;
 }
 
-
 export interface Icategories {
   id: string;
   name: string;
 }
-
 
 export interface ISlide {
   id: number;
@@ -135,36 +168,38 @@ export interface ISlide {
   category: string;
 }
 
-
 export interface ErrorFallbackProps {
   error: Error;
   resetErrorBoundary?: () => void;
 }
 
-
 export type IconName = keyof typeof Icons;
-export type ButtonVariant = ButtonProps['variant'];
-export type ButtonSize = ButtonProps['size'];
-export type ElementType = Ielements['type'];
+export type ButtonVariant = ButtonProps["variant"];
+export type ButtonSize = ButtonProps["size"];
+export type ElementType = Ielements["type"];
 
-export type CardType = IcardProps['type'];
+export type CardType = IcardProps["type"];
 export type ProjectType = IfeaturedProjects | Iprojects;
 
-export const isFeaturedProject = (project: ProjectType): project is IfeaturedProjects => {
-  return 'year' in project && project.year !== undefined;
+export const isFeaturedProject = (
+  project: ProjectType
+): project is IfeaturedProjects => {
+  return "year" in project && project.year !== undefined;
 };
 
 export const isFullProject = (project: ProjectType): project is Iprojects => {
-  return 'gallery' in project && Array.isArray(project.gallery);
+  return "gallery" in project && Array.isArray(project.gallery);
 };
 
-export const createAnimation = (config: Partial<AnimationConfig>): AnimationConfig => ({
+export const createAnimation = (
+  config: Partial<AnimationConfig>
+): AnimationConfig => ({
   y: [0, 0, 0],
   x: [0, 0, 0],
   rotate: [0, 0, 0],
   opacity: [1, 1, 1],
   scale: [1, 1, 1],
-  ...config
+  ...config,
 });
 
 export interface ContactFormData {
@@ -179,4 +214,10 @@ export interface ApiResponse<T> {
   data?: T;
   error?: string;
   message?: string;
+}
+
+export interface IpageHeaderProps {
+  pageName: string;
+  title: string;
+  description: string;
 }

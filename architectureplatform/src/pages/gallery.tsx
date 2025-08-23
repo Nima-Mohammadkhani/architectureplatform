@@ -4,6 +4,8 @@ import Card from "../components/ui/card";
 import { Icategories, Iprojects } from "../types/ui";
 import Icon from "../components/ui/Icon";
 import Input from "../components/ui/Input";
+import PageHeader from "../components/ui/pageHeader";
+import Button from "../components/ui/Button";
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedProject, setSelectedProject] = useState<Iprojects | null>(
@@ -104,19 +106,11 @@ const Gallery = () => {
   return (
     <div className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center my-12"
-        >
-          <h1 className="text-4xl md:text-6xl font-light text-gray-900 mb-4">
-            گالری <span className="text-yellow-600">پروژه‌ها</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            مجموعه‌ای از بهترین پروژه‌های معماری و طراحی داخلی ما
-          </p>
-        </motion.div>
+        <PageHeader
+          pageName="گالری"
+          title="پروژه‌ها"
+          description="مجموعه‌ای از بهترین پروژه‌های معماری و طراحی داخلی ما"
+        />
 
         <div className="mb-12">
           <div className="relative mb-8">
@@ -200,12 +194,12 @@ const Gallery = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative">
-                <button
+                <Button
                   onClick={() => setSelectedProject(null)}
                   className="absolute top-4 left-4 z-10 bg-white rounded-full p-2 hover:bg-gray-100 transition-colors"
                 >
                   <Icon name="X" className="w-5 h-5" />
-                </button>
+                </Button>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
                   <div>
