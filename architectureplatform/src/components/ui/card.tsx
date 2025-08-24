@@ -89,7 +89,7 @@ const Card: React.FC<IcardProps> = ({
               {service?.features.map((feature, idx) => (
                 <li
                   key={idx}
-                  className="flex items-center text-gray-600 text-sm"
+                  className="flex items-center gap-2 text-gray-600 text-sm"
                 >
                   <div className="w-2 h-2 bg-yellow-500 rounded-full mr-2"></div>
                   {feature}

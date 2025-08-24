@@ -10,6 +10,14 @@ body {
   font-family: vazir;
 }
 
+.rtl {
+  direction: rtl;
+}
+
+.ltr {
+  direction: ltr;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
 }

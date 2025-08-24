@@ -40,13 +40,13 @@ const Footer = () => {
   const contactInfo = [
     {
       icon: <Icon name="Phone" className="w-5 h-5" />,
-      text: "+۹۸ ۲۱ ۱۲۳۴ ۵۶۷۸",
-      description: "شنبه تا چهارشنبه ۹ صبح تا ۶ عصر",
+      text: "+98 21 1234 5678",
+      description: "شنبه تا چهارشنبه 9 صبح تا 6 عصر",
     },
     {
       icon: <Icon name="Mail" className="w-5 h-5" />,
       text: "info@memar-tarrah.ir",
-      description: "پاسخگویی در کمتر از ۲۴ ساعت",
+      description: "پاسخگویی در کمتر از 24 ساعت",
     },
     {
       icon: <Icon name="MapPin" className="w-5 h-5" />,
@@ -56,7 +56,7 @@ const Footer = () => {
     {
       icon: <Icon name="MapPin" className="w-5 h-5" />,
       text: "شنبه تا چهارشنبه",
-      description: "۹:۰۰ صبح تا ۱۸:۰۰ عصر",
+      description: "9:00 صبح تا 18:00 عصر",
     },
   ];
 
@@ -127,12 +127,16 @@ const Footer = () => {
                 className="space-y-3"
               >
                 {contactInfo.map((info, index) => (
-                  <div key={index} className="flex items-start gap-2">
+                  <div key={index} className="flex items-start gap-2 text-end">
                     <div className="text-yellow-500 mt-0.5 flex-shrink-0">
                       {info.icon}
                     </div>
                     <div>
-                      <p className="text-white font-medium text-sm">
+                      <p
+                        className={`text-white font-medium text-sm ${
+                          contactInfo[0] ? "ltr" : null
+                        }`}
+                      >
                         {info.text}
                       </p>
                       <p className="text-gray-400 text-xs">

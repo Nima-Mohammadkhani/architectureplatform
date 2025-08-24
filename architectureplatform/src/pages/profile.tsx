@@ -1,15 +1,27 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useAppSelector, useAppDispatch } from "../redux/hooks";
-import { updateProfile } from "../redux/slice/user";
-import { updateNotifications } from "../redux/slice/profile";
+import {
+  updateProfile,
+  changePassword,
+  deleteAccount,
+  logout,
+} from "../redux/slice/user";
+import {
+  updateNotifications,
+  clearAllProfileData,
+} from "../redux/slice/profile";
 import Icon from "../components/ui/Icon";
 import { toast } from "react-toastify";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
+import { useNavigate } from "react-router-dom";
+import PasswordChangeModal from "../components/PasswordChangeModal";
+import DeleteAccountModal from "../components/DeleteAccountModal";
 
 const Profile = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.user);
   const { orders, services, notifications } = useAppSelector(
     (state) => state.profile
@@ -23,7 +35,12 @@ const Profile = () => {
     address: "",
     bio: "",
   });
-console.log(user);
+
+  // New state for settings functionality
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
+  console.log(user);
 
   useEffect(() => {
     if (user) {
@@ -76,6 +93,24 @@ console.log(user);
     toast.success("تنظیمات اعلان‌ها بروزرسانی شد");
   };
 
+  const handlePasswordChange = (oldPassword: string, newPassword: string) => {
+    dispatch(
+      changePassword({
+        oldPassword,
+        newPassword,
+      })
+    );
+    toast.success("رمز عبور با موفقیت تغییر یافت");
+    setShowPasswordModal(false);
+  };
+
+  const handleDeleteAccount = () => {
+    dispatch(clearAllProfileData());
+    dispatch(deleteAccount());
+    toast.success("حساب کاربری با موفقیت حذف شد");
+    navigate("/");
+  };
+
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("fa-IR").format(price);
   };
@@ -83,10 +118,10 @@ console.log(user);
   const formatJoinDate = (dateString: string) => {
     try {
       const date = new Date(dateString);
-      return new Intl.DateTimeFormat('fa-IR', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
+      return new Intl.DateTimeFormat("fa-IR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
       }).format(date);
     } catch (error) {
       return dateString;
@@ -127,7 +162,7 @@ console.log(user);
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="mb-12"
+          className="my-12"
         >
           <div className="bg-gradient-to-r from-yellow-600 to-orange-600 rounded-2xl p-8 text-white">
             <div className="flex items-center gap-2">
@@ -144,12 +179,14 @@ console.log(user);
               </div>
               <div>
                 <h1 className="text-3xl font-bold mb-2">
-                  خوش آمدید، {user.name}
+                  {user.name} خوش آمدید.
                 </h1>
                 <p className="text-yellow-100 mb-1">{user.email}</p>
                 <div className="flex items-center text-yellow-100">
                   <Icon name="Calendar" className="w-4 h-4 ml-2" />
-                  <span>عضو از {formatJoinDate(user.joinDate || '')}</span>
+                  <span>
+                    عضو از {formatJoinDate(user.joinDate || new Date())}
+                  </span>
                 </div>
               </div>
             </div>
@@ -200,7 +237,7 @@ console.log(user);
                         iconRight="Edit2"
                       />
                     ) : (
-                      <div className="flex space-x-2 space-x-reverse">
+                      <div className="flex items-center gap-2">
                         <Button
                           title="ذخیره"
                           onClick={handleSaveProfile}
@@ -505,6 +542,7 @@ console.log(user);
                       </p>
                       <Button
                         title="تغییر رمز عبور"
+                        onClick={() => setShowPasswordModal(true)}
                         className="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition-colors"
                       />
                     </div>
@@ -559,6 +597,24 @@ console.log(user);
                       </div>
                     </div>
 
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <h3 className="font-semibold text-blue-900 mb-2">
+                        خروج از حساب
+                      </h3>
+                      <p className="text-blue-700 mb-4">
+                        برای خروج از حساب کاربری خود کلیک کنید
+                      </p>
+                      <Button
+                        title="خروج از حساب"
+                        onClick={() => {
+                          dispatch(logout());
+                          toast.success("با موفقیت از حساب کاربری خارج شدید");
+                          navigate("/");
+                        }}
+                        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
+                      />
+                    </div>
+
                     <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                       <h3 className="font-semibold text-red-900 mb-2">
                         حذف حساب کاربری
@@ -569,11 +625,26 @@ console.log(user);
                       </p>
                       <Button
                         title="حذف حساب کاربری"
+                        onClick={() => setShowDeleteConfirm(true)}
                         className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors"
                       />
                     </div>
                   </div>
                 </div>
+              )}
+              {showPasswordModal && (
+                <PasswordChangeModal
+                  isOpen={showPasswordModal}
+                  onClose={() => setShowPasswordModal(false)}
+                  onSubmit={handlePasswordChange}
+                />
+              )}
+              {showDeleteConfirm && (
+                <DeleteAccountModal
+                  isOpen={showDeleteConfirm}
+                  onClose={() => setShowDeleteConfirm(false)}
+                  onConfirm={handleDeleteAccount}
+                />
               )}
             </motion.div>
           </div>

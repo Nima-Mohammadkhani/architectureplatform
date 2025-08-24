@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Icon from "./ui/Icon";
-
+import { toast } from "react-toastify";
 const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -14,6 +14,7 @@ const ContactSection = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitted(true);
+    toast.success("پیام شما با موفقیت ارسال شد.");
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({ name: "", email: "", phone: "", message: "" });
@@ -53,6 +54,29 @@ const ContactSection = () => {
       title: "ساعات کاری",
       value: "شنبه تا چهارشنبه",
       description: "9:00 صبح تا 18:00 عصر",
+    },
+  ];
+
+  const socialLinks = [
+    {
+      icon: <Icon name="Instagram" className="w-5 h-5" />,
+      name: "Instagram",
+      href: "#",
+    },
+    {
+      icon: <Icon name="Twitter" className="w-5 h-5" />,
+      name: "Twitter",
+      href: "#",
+    },
+    {
+      icon: <Icon name="Linkedin" className="w-5 h-5" />,
+      name: "LinkedIn",
+      href: "#",
+    },
+    {
+      icon: <Icon name="Youtube" className="w-5 h-5" />,
+      name: "YouTube",
+      href: "#",
     },
   ];
 
@@ -147,7 +171,7 @@ const ContactSection = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-300"
-                    placeholder="شماره تماس خود را وارد کنید"
+                    placeholder="+98 21 1234 5678"
                   />
                 </div>
 
@@ -201,7 +225,13 @@ const ContactSection = () => {
                 <div className="text-yellow-500 mt-1">{info.icon}</div>
                 <div>
                   <h4 className="font-semibold text-lg mb-1">{info.title}</h4>
-                  <p className="text-white font-medium mb-1">{info.value}</p>
+                  <p
+                    className={`text-white text-end font-medium mb-1 ${
+                      contactInfo[0] ? "ltr" : null
+                    }`}
+                  >
+                    {info.value}
+                  </p>
                   <p className="text-gray-400 text-sm">{info.description}</p>
                 </div>
               </motion.div>
@@ -217,16 +247,17 @@ const ContactSection = () => {
                 شبکه‌های اجتماعی
               </h4>
               <div className="flex gap-2">
-                {["Instagram", "Telegram", "LinkedIn", "Twitter"].map(
-                  (platform) => (
-                    <button
-                      key={platform}
-                      className="w-12 h-12 bg-white/10 hover:bg-yellow-500 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
-                    >
-                      <span className="text-sm font-medium">{platform[0]}</span>
-                    </button>
-                  )
-                )}
+                {socialLinks.map((social) => (
+                  <motion.a
+                    key={social.name}
+                    href={social.href}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-10 h-10 bg-white/10 hover:bg-yellow-500 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300 hover:shadow-lg"
+                  >
+                    {social.icon}
+                  </motion.a>
+                ))}
               </div>
             </motion.div>
           </motion.div>
