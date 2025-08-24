@@ -6,6 +6,7 @@ import Icon from "../components/ui/Icon";
 import Input from "../components/ui/Input";
 import PageHeader from "../components/ui/pageHeader";
 import Button from "../components/ui/Button";
+import GalleryModal from "../components/galleyModal";
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedProject, setSelectedProject] = useState<Iprojects | null>(
@@ -179,102 +180,11 @@ const Gallery = () => {
 
       <AnimatePresence>
         {selectedProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 bg-opacity-80 z-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedProject(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-lg max-w-4xl max-h-[90vh] overflow-y-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="relative">
-                <Button
-                  onClick={() => setSelectedProject(null)}
-                  className="absolute top-4 left-4 z-10 bg-white rounded-full p-2 hover:bg-gray-100 transition-colors"
-                >
-                  <Icon name="X" className="w-5 h-5" />
-                </Button>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-                  <div>
-                    <img
-                      src={selectedProject.image}
-                      alt={selectedProject.title}
-                      className="w-full h-64 md:h-full object-cover"
-                    />
-                  </div>
-
-                  <div className="p-8">
-                    <div className="mb-4">
-                      <span className="bg-yellow-600 text-white px-3 py-1 rounded-full text-sm">
-                        {
-                          categories.find(
-                            (cat) => cat.id === selectedProject.category
-                          )?.name
-                        }
-                      </span>
-                    </div>
-
-                    <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                      {selectedProject.title}
-                    </h2>
-
-                    <p className="text-gray-600 mb-6 leading-relaxed">
-                      {selectedProject.description}
-                    </p>
-
-                    <div className="space-y-3 mb-6">
-                      <div className="flex justify-between">
-                        <span className="text-gray-500">مساحت:</span>
-                        <span className="font-medium">
-                          {selectedProject.area}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-500">سال اجرا:</span>
-                        <span className="font-medium">
-                          {selectedProject.year}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-500">موقعیت:</span>
-                        <span className="font-medium">
-                          {selectedProject.location}
-                        </span>
-                      </div>
-                    </div>
-
-                    {selectedProject.gallery &&
-                      selectedProject.gallery.length > 1 && (
-                        <div>
-                          <h3 className="text-lg font-semibold mb-3">
-                            تصاویر بیشتر
-                          </h3>
-                          <div className="grid grid-cols-2 gap-2">
-                            {selectedProject.gallery
-                              .slice(1)
-                              .map((img, index) => (
-                                <img
-                                  key={index}
-                                  src={img}
-                                  alt=""
-                                  className="w-full h-20 object-cover rounded"
-                                />
-                              ))}
-                          </div>
-                        </div>
-                      )}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
+          <GalleryModal
+            selectedProject={selectedProject}
+            categories={categories}
+            setSelectedProject={setSelectedProject}
+          />
         )}
       </AnimatePresence>
     </div>

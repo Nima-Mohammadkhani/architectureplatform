@@ -155,6 +155,7 @@ export interface IcardProps {
   consultants?: IConsultant[];
   selectedConsultant?: string;
   setSelectedConsultant?: (id?: string) => void;
+  onAddToCart?: (product: any) => void;
 }
 
 export interface Iservice {
@@ -361,6 +362,7 @@ export interface FormData {
   email: string;
   password: string;
   confirmPassword: string;
+  joinDate: string;
 }
 
 export interface FormErrors {
