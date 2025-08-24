@@ -62,7 +62,7 @@ const Shop = () => {
       image: "/image/product/2.jpeg",
       rating: 4.9,
       reviews: 12,
-      description: "ماکت تفصیلی ویلای مدرن با جزئیات کامل",
+      description: "ماکت تفصیلی ویلای مدرن و زیبا با جزئیات کامل",
       inStock: true,
       featured: true,
     },
@@ -98,7 +98,7 @@ const Shop = () => {
       image: "image/product/5.jpeg",
       rating: 4.5,
       reviews: 27,
-      description: "راهنمای کامل طراحی داخلی با سبک مینیمال",
+      description: "راهنمای کامل و حرفه ایی طراحی داخلی با سبک مینیمال",
       inStock: true,
       featured: false,
     },
@@ -132,10 +132,10 @@ const Shop = () => {
       title: "نرم‌افزار طراحی سه‌بعدی",
       category: "tools",
       price: 1200000,
-      image: "image/product/8.jpeg",
+      image: "image/product/8.webp",
       rating: 4.9,
       reviews: 42,
-      description: "نرم‌افزار حرفه‌ای طراحی معماری سه‌بعدی",
+      description: "نرم‌افزار حرفه‌ای و کاربردی طراحی معماری سه‌بعدی",
       inStock: true,
       featured: true,
     },
@@ -242,10 +242,7 @@ const Shop = () => {
                       placeholder="تا"
                       value={priceRange[1]}
                       onChange={(e) =>
-                        setPriceRange([
-                          priceRange[0],
-                          parseInt(e.target.value) || 10000000,
-                        ])
+                        setPriceRange([priceRange[0], parseInt(e.target.value)])
                       }
                       className="w-full px-3 py-2 border border-gray-200 rounded text-sm focus:outline-none focus:ring-2 focus:ring-yellow-600"
                     />
@@ -317,12 +314,12 @@ const Shop = () => {
                   />
 
                   <Button
-                    title="۱"
+                    title="1"
                     className="px-4 py-2 bg-yellow-600 text-white rounded-lg"
                   />
 
                   <Button
-                    title="۲"
+                    title="2"
                     className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                   />
 

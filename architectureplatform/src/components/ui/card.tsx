@@ -21,9 +21,6 @@ const Card: React.FC<IcardProps> = ({
   setSelectedConsultant,
   onAddToCart,
 }) => {
-  const formatPrice = (price: number) =>
-    new Intl.NumberFormat("fa-IR").format(price);
-
   const renderCard = () => {
     switch (type) {
       case "topPortfolios":
@@ -220,7 +217,7 @@ const Card: React.FC<IcardProps> = ({
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 group"
+                className="bg-white flex flex-col justify-between rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 group"
               >
                 <div className="relative overflow-hidden">
                   <img
@@ -234,7 +231,7 @@ const Card: React.FC<IcardProps> = ({
                     </div>
                   )}
                   {!product.inStock && (
-                    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                       <span className="text-white font-medium">ناموجود</span>
                     </div>
                   )}
@@ -275,11 +272,11 @@ const Card: React.FC<IcardProps> = ({
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex flex-col">
                       <span className="text-xl font-bold text-gray-900">
-                        {formatPrice(product.price)} تومان
+                        {product.price} تومان
                       </span>
                       {product.originalPrice && (
                         <span className="text-sm text-gray-500 line-through">
-                          {formatPrice(product.originalPrice)} تومان
+                          {product.originalPrice} تومان
                         </span>
                       )}
                     </div>
@@ -299,7 +296,9 @@ const Card: React.FC<IcardProps> = ({
                     title={product.inStock ? "افزودن به سبد" : "ناموجود"}
                     iconLeft="ShoppingCart"
                     disabled={!product.inStock}
-                    onClick={product.inStock ? () => onAddToCart?.(product) : undefined}
+                    onClick={
+                      product.inStock ? () => onAddToCart?.(product) : undefined
+                    }
                     className={`w-full py-2 rounded-lg font-medium transition-colors flex items-center justify-center ${
                       product.inStock
                         ? "bg-yellow-600 text-white hover:bg-yellow-700"
@@ -333,7 +332,7 @@ const Card: React.FC<IcardProps> = ({
                 </p>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-yellow-600 font-medium">
-                    {formatPrice(service.price)} تومان
+                    {service.price} تومان
                   </span>
                   <span className="text-gray-500">{service.duration}</span>
                 </div>
