@@ -175,7 +175,7 @@ const Card: React.FC<IcardProps> = ({
               </p>
 
               <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                <div className="flex items-center space-x-4 space-x-reverse">
+                <div className="flex items-center gap-2">
                   <span className="flex items-center">
                     <Icon name="User" className="w-4 h-4 ml-1" />
                     {post?.author}
