@@ -26,7 +26,7 @@ const GalleryModal: React.FC<GalleryModalProps> = ({
         <div className="relative">
           <Icon
             name="X"
-            className="absolute top-0 left-0 rounded-full m-4 border bg-white w-5 h-5 text-gray-700"
+            className="absolute top-0 left-0 rounded-full m-4 border bg-white w-5 h-5 text-gray-700 z-10"
             onClick={() => setSelectedProject(null)}
           />
 

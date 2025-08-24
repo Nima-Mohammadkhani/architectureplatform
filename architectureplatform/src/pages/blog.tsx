@@ -6,9 +6,11 @@ import PageHeader from "../components/ui/pageHeader";
 import Icon from "../components/ui/Icon";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
+import { toast } from "react-toastify";
 
 const Blog = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [news, setNews] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   const categories: Icategories[] = [
@@ -28,8 +30,8 @@ const Blog = () => {
       content: "معماری مدرن در ایران تحولات بسیار زیادی را طی کرده است...",
       category: "architecture",
       author: "مهندس احمدی",
-      date: "۱۴۰۳/۱۲/۱۰",
-      readTime: "۸ دقیقه",
+      date: "1403/12/10",
+      readTime: "8 دقیقه",
       image: "/image/slider/1.webp",
       tags: ["معماری مدرن", "طراحی", "ایران"],
     },
@@ -41,8 +43,8 @@ const Blog = () => {
       content: "طراحی مینیمال یکی از محبوب‌ترین سبک‌های طراحی داخلی است...",
       category: "interior",
       author: "مریم صالحی",
-      date: "۱۴۰۳/۱۲/۰۸",
-      readTime: "۶ دقیقه",
+      date: "1403/12/08",
+      readTime: "6 دقیقه",
       image: "/image/slider/3.webp",
       tags: ["مینیمال", "طراحی داخلی", "دکوراسیون"],
     },
@@ -54,20 +56,20 @@ const Blog = () => {
       content: "نور طبیعی یکی از مهم‌ترین عناصر در طراحی معماری است...",
       category: "architecture",
       author: "دکتر رضایی",
-      date: "۱۴۰۳/۱۲/۰۵",
-      readTime: "۱۰ دقیقه",
+      date: "1403/12/05",
+      readTime: "10 دقیقه",
       image: "/image/slider/2.jpeg",
       tags: ["نور طبیعی", "معماری", "طراحی"],
     },
     {
       id: 4,
-      title: "ترندهای رنگ‌بندی در دکوراسیون ۲۰۲۵",
+      title: "ترندهای رنگ‌بندی در دکوراسیون 2025",
       excerpt: "آشنایی با جدیدترین ترندهای رنگ برای طراحی داخلی در سال آینده",
       content: "رنگ‌ها در طراحی داخلی نقش بسیار مهمی دارند...",
       category: "trends",
       author: "سارا احمدی",
-      date: "۱۴۰۳/۱۲/۰۲",
-      readTime: "۵ دقیقه",
+      date: "1403/12/02",
+      readTime: "5 دقیقه",
       image: "/image/slider/4.jpeg",
       tags: ["رنگ", "ترند", "دکوراسیون"],
     },
@@ -79,8 +81,8 @@ const Blog = () => {
         "انتخاب مبلمان مناسب می‌تواند تأثیر بسیار زیادی بر زیبایی خانه داشته باشد...",
       category: "tips",
       author: "علی موسوی",
-      date: "۱۴۰۳/۱۱/۲۸",
-      readTime: "۷ دقیقه",
+      date: "1403/11/28",
+      readTime: "7 دقیقه",
       image: "/image/slider/3.webp",
       tags: ["مبلمان", "انتخاب", "طراحی داخلی"],
     },
@@ -91,8 +93,8 @@ const Blog = () => {
       content: "معماری پایدار یکی از مهم‌ترین چالش‌های معماری معاصر است...",
       category: "architecture",
       author: "مهندس کریمی",
-      date: "۱۴۰۳/۱۱/۲۵",
-      readTime: "۹ دقیقه",
+      date: "1403/11/25",
+      readTime: "9 دقیقه",
       image: "/image/slider/1.webp",
       tags: ["معماری پایدار", "محیط زیست", "معماری سبز"],
     },
@@ -148,7 +150,7 @@ const Blog = () => {
                 <p className="text-xl text-gray-200 mb-6 max-w-2xl">
                   {featuredPost.excerpt}
                 </p>
-                <div className="flex items-center space-x-6 space-x-reverse text-gray-300">
+                <div className="flex items-center gap-2 text-gray-300">
                   <div className="flex items-center">
                     <Icon name="User" className="w-4 h-4 ml-2" />
                     {featuredPost.author}
@@ -244,7 +246,7 @@ const Blog = () => {
                   {recentPosts.map((post) => (
                     <div
                       key={post.id}
-                      className="flex space-x-3 space-x-reverse group cursor-pointer"
+                      className="flex items-center gap-2 group cursor-pointer"
                     >
                       <img
                         src={post.image}
@@ -290,11 +292,17 @@ const Blog = () => {
                 <div className="space-y-3">
                   <Input
                     type="email"
+                    value={news}
+                    onChange={(e) => setNews(e.target.value)}
                     placeholder="ایمیل شما"
                     className="w-full px-3 py-2 rounded text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
                   />
                   <Button
                     title="عضویت"
+                    onClick={() => {
+                      setNews("");
+                      toast.info("با تشکر از عضویت شما در خبرنامه ما.");
+                    }}
                     className="w-full bg-white text-yellow-600 py-2 rounded font-medium hover:bg-gray-100 transition-colors"
                   />
                 </div>
