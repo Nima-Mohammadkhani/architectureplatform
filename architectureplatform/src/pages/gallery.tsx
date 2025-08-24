@@ -5,7 +5,6 @@ import { Icategories, Iprojects } from "../types/ui";
 import Icon from "../components/ui/Icon";
 import Input from "../components/ui/Input";
 import PageHeader from "../components/ui/pageHeader";
-import Button from "../components/ui/Button";
 import GalleryModal from "../components/galleyModal";
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");

@@ -148,10 +148,6 @@ const Consultation = () => {
     });
   };
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("fa-IR").format(price);
-  };
-
   const handleServiceSelection = (id?: string | number) => {
     if (typeof id === "string") {
       setSelectedService(id);
