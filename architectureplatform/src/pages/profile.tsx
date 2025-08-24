@@ -36,7 +36,6 @@ const Profile = () => {
     bio: "",
   });
 
-  // New state for settings functionality
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
@@ -185,7 +184,7 @@ const Profile = () => {
                 <div className="flex items-center text-yellow-100">
                   <Icon name="Calendar" className="w-4 h-4 ml-2" />
                   <span>
-                    عضو از {formatJoinDate(user.joinDate || new Date())}
+                    عضو از {formatJoinDate(user.joinDate || new Date().toISOString())}
                   </span>
                 </div>
               </div>

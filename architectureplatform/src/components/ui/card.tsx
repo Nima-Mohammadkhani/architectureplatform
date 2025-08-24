@@ -314,10 +314,10 @@ const Card: React.FC<IcardProps> = ({
       case "consultantType":
         return (
           <>
-            {services?.map((service) => (
+            {(Array.isArray(services) ? services : [])?.map((service) => (
               <div
                 key={service.id}
-                onClick={() => setSelectedService(service.id)}
+                onClick={() => setSelectedService?.(service.id)}
                 className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
                   selectedService === service.id
                     ? "border-yellow-600 bg-yellow-50"
@@ -347,7 +347,7 @@ const Card: React.FC<IcardProps> = ({
             {consultants?.map((consultant) => (
               <div
                 key={consultant.id}
-                onClick={() => setSelectedConsultant(consultant.id)}
+                onClick={() => setSelectedConsultant?.(consultant.id)}
                 className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
                   selectedConsultant === consultant.id
                     ? "border-yellow-600 bg-yellow-50"

@@ -17,6 +17,7 @@ const Button: React.FC<ButtonProps> = ({
   iconLeft,
   iconRight,
   fullWidth = false,
+  type = "button",
 }) => {
   const baseClasses =
     "inline-flex items-center justify-center rounded-lg font-semibold transition-all duration-150 overflow-hidden gap-2";
@@ -51,15 +52,33 @@ const Button: React.FC<ButtonProps> = ({
     disabled && "text-gray-300"
   );
 
+  const renderIconLeft = () => {
+    if (!iconLeft) return null;
+    return typeof iconLeft === "string" ? (
+      <Icon name={iconLeft as any} />
+    ) : (
+      iconLeft
+    );
+  };
+
+  const renderIconRight = () => {
+    if (!iconRight) return null;
+    return typeof iconRight === "string" ? (
+      <Icon name={iconRight as any} />
+    ) : (
+      iconRight
+    );
+  };
+
   const content = (
     <>
       {loading ? (
         <Loader2 className="h-5 w-5 animate-spin" />
       ) : (
         <>
-          {iconLeft && <Icon name={iconLeft} />}
+          {renderIconLeft()}
           {title && <span className={textClasses}>{title}</span>}
-          {iconRight && <Icon name={iconRight} />}
+          {renderIconRight()}
         </>
       )}
     </>
@@ -75,6 +94,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
+      type={type}
       onClick={!disabled && !loading ? onClick : undefined}
       disabled={disabled || loading}
       className={buttonClasses}

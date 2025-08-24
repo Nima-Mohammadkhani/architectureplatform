@@ -41,24 +41,28 @@ const Cart = () => {
       id: 1,
       title: "کتاب معماری معاصر ایران",
       price: 450000,
+      category: "book",
       image: "/image/product/1.jpeg",
     },
     {
       id: 2,
       title: "ماکت ویلای مدرن",
       price: 2800000,
+      category: "model",
       image: "/image/product/2.jpeg",
     },
     {
       id: 3,
       title: "مجموعه تکسچر چوب طبیعی",
       price: 180000,
+      category: "texture",
       image: "/image/product/3.webp",
     },
     {
       id: 4,
       title: "ست خودکار طراحی معماری",
       price: 320000,
+      category: "stationery",
       image: "image/product/4.jpeg",
     },
   ];

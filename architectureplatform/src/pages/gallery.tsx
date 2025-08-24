@@ -158,7 +158,9 @@ const Gallery = () => {
                 index={index}
                 type="gallery"
                 categories={categories}
-                setSelectedProject={setSelectedProject}
+                setSelectedProject={(p) =>
+                  setSelectedProject((p as any) ?? project)
+                }
               />
             ))}
           </AnimatePresence>

@@ -1,5 +1,6 @@
 import * as Icons from "lucide-react";
 import React from "react";
+import type { TargetAndTransition } from "framer-motion";
 
 export interface ButtonProps {
   title?: string;
@@ -14,6 +15,7 @@ export interface ButtonProps {
   iconLeft?: React.ReactNode | keyof typeof Icons;
   iconRight?: React.ReactNode | keyof typeof Icons;
   fullWidth?: boolean;
+  type?: "button" | "submit" | "reset";
 }
 
 export interface IconProps {
@@ -38,13 +40,7 @@ export interface InputProps
   inputClassName?: string;
 }
 
-export interface AnimationConfig {
-  y?: number[];
-  x?: number[];
-  rotate?: number[];
-  opacity?: number[];
-  scale?: number[];
-}
+export type AnimationConfig = TargetAndTransition;
 
 export interface Ielements {
   id: number;
@@ -222,8 +218,8 @@ export const isFullProject = (project: ProjectType): project is Iprojects => {
 };
 
 export const createAnimation = (
-  config: Partial<AnimationConfig>
-): AnimationConfig => ({
+  config: Partial<TargetAndTransition>
+): TargetAndTransition => ({
   y: [0, 0, 0],
   x: [0, 0, 0],
   rotate: [0, 0, 0],
@@ -286,22 +282,22 @@ export interface IServices {
 
 export interface IProjectDetailsProps {
   type: "area" | "project" | "floor" | "level" | "location" | "feature";
-  area: string;
-  setArea: (area: string) => void;
-  floors: string;
-  setFloors: (floors: string) => void;
-  location: string;
-  setLocation: (location: string) => void;
-  locations: ILocation[];
-  services: IServices;
-  servicesList: IService[];
-  setServices: (services: IServices) => void;
-  projectTypes: IProjectType[];
-  setProjectType: (type: string) => void;
-  projectType: string;
-  finishLevels: IFinishLevel[];
-  finishLevel: string;
-  setFinishLevel: (level: string) => void;
+  area?: string;
+  setArea?: (area: string) => void;
+  floors?: string;
+  setFloors?: (floors: string) => void;
+  location?: string;
+  setLocation?: (location: string) => void;
+  locations?: ILocation[];
+  services?: IServices;
+  servicesList?: IService[];
+  setServices?: (services: IServices) => void;
+  projectTypes?: IProjectType[];
+  setProjectType?: (type: string) => void;
+  projectType?: string;
+  finishLevels?: IFinishLevel[];
+  finishLevel?: string;
+  setFinishLevel?: (level: string) => void;
 }
 
 export interface ICalculatorState {

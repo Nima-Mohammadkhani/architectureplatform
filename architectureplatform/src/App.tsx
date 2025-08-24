@@ -1,5 +1,5 @@
 import { BrowserRouter, useRoutes } from "react-router-dom";
-import routes from "~react-pages";
+import routes from "virtual:generated-pages-react";
 import PWABadge from "./PWABadge.tsx";
 import Header from "./components/ui/header.tsx";
 import Footer from "./components/ui/footer.tsx";

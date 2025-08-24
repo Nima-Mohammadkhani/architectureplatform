@@ -90,6 +90,11 @@ const Calculator = () => {
     );
     const selectedLocation = locations.find((loc) => loc.id === location);
 
+    if (!selectedType || !selectedFinish || !selectedLocation) {
+      setTotalCost(0);
+      return;
+    }
+
     let baseCost = selectedType.basePrice * parseInt(area);
 
     const floorMultiplier = 1 + (parseInt(floors) - 1) * 0.1;
@@ -106,7 +111,9 @@ const Calculator = () => {
         serviceId !== "architectural"
       ) {
         const service = servicesList.find((s) => s.id === serviceId);
-        servicesCost += service.price * parseInt(area);
+        if (service) {
+          servicesCost += service.price * parseInt(area);
+        }
       }
     });
 

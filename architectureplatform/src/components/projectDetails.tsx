@@ -1,5 +1,5 @@
 import Input from "./ui/Input";
-import { IProjectDetailsProps } from "../types/ui";
+import { IProjectDetailsProps, IServices } from "../types/ui";
 
 const ProjectDetails: React.FC<IProjectDetailsProps> = ({
   type,
@@ -32,7 +32,7 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({
               inputMode="numeric"
               min="1"
               value={area}
-              onChange={(e) => setArea(e.target.value)}
+              onChange={(e) => setArea?.(e.target.value)}
               placeholder="مثال: 150"
               className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-transparent"
             />
@@ -49,7 +49,7 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({
               {projectTypes?.map((type) => (
                 <button
                   key={type.id}
-                  onClick={() => setProjectType(type.id)}
+                  onClick={() => setProjectType?.(type.id)}
                   className={`p-4 rounded-lg border-2 text-right transition-colors ${
                     projectType === type.id
                       ? "border-yellow-600 bg-yellow-50 text-yellow-700"
@@ -74,7 +74,7 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({
             </label>
             <select
               value={floors}
-              onChange={(e) => setFloors(e.target.value)}
+              onChange={(e) => setFloors?.(e.target.value)}
               className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-transparent"
             >
               {[1, 2, 3, 4, 5].map((num) => (
@@ -103,7 +103,7 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({
                     name="finishLevel"
                     value={level.id}
                     checked={finishLevel === level.id}
-                    onChange={(e) => setFinishLevel(e.target.value)}
+                    onChange={(e) => setFinishLevel?.(e.target.value)}
                     className="text-yellow-600 focus:ring-yellow-600"
                   />
                   <span className="text-gray-900">{level.name}</span>
@@ -121,7 +121,7 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({
             </label>
             <select
               value={location}
-              onChange={(e) => setLocation(e.target.value)}
+              onChange={(e) => setLocation?.(e.target.value)}
               className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:border-transparent"
             >
               {locations?.map((loc) => (
@@ -148,12 +148,16 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({
                   <div className="flex justify-center items-center gap-2">
                     <Input
                       type="checkbox"
-                      checked={services[service.id as keyof IServices]}
+                      checked={Boolean(
+                        (services as IServices | undefined)?.[
+                          service.id as keyof IServices
+                        ]
+                      )}
                       onChange={(e) =>
-                        setServices({
-                          ...services,
+                        setServices?.({
+                          ...(services as IServices),
                           [service.id]: e.target.checked,
-                        })
+                        } as IServices)
                       }
                       disabled={service.id === "architectural"}
                       className="text-yellow-600 focus:ring-yellow-600 checkbox"
