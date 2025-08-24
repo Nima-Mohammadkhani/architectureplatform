@@ -27,3 +27,15 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #ca8a04;
 }
+
+.Toastify__toast--success {
+  background: #e6ffed;
+  color: #0f5132;
+  font-family: "vazir";
+}
+
+.Toastify__toast--error {
+  background: #842029;
+  color: #ffff;
+  font-family: "vazir";
+}

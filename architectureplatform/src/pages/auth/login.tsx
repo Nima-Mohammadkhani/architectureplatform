@@ -5,7 +5,9 @@ import Button from "../../components/ui/Button";
 import Icon from "../../components/ui/Icon";
 import Input from "../../components/ui/Input";
 import { FormData, FormErrors } from "../../types/ui";
-
+import { useDispatch } from "react-redux";
+import { login, register } from "../../redux/slice/user";
+import { toast } from "react-toastify";
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -17,6 +19,7 @@ const Login = () => {
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -68,9 +71,11 @@ const Login = () => {
     try {
       let success: boolean = false;
       if (isLogin) {
-        // success = await login(formData.email, formData.password);
+        success = await dispatch(login(formData));
+        toast.success("ورود با موفقیت انجام شد.");
       } else {
-        // success = await register(formData.name, formData.email, formData.password);
+        success = await dispatch(register(formData));
+        toast.success("ثبت نام با موفقیت انجام شد.");
       }
 
       if (success) {

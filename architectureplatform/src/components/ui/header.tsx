@@ -1,14 +1,19 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Icon from "../ui/Icon";
+import { useDispatch, useSelector } from "react-redux";
+import Button from "./Button";
+import { logout } from "../../redux/slice/user";
+import { toast } from "react-toastify";
 type NavItem = { name: string; path: string };
 
 const Header: React.FC = () => {
-  const [user] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
-
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const isActive = (path: string) => location.pathname === path;
@@ -112,9 +117,15 @@ const Header: React.FC = () => {
                       className="w-5 h-5 group-hover:scale-110 transition-transform duration-300"
                     />
                   </Link>
-                  <button className="text-sm text-black hover:text-white hover:bg-[#eab308] px-3 py-2 rounded-lg transition-all duration-300 font-medium">
-                    خروج
-                  </button>
+                  <Button
+                    title="خروج"
+                    className="text-sm text-black hover:text-white hover:bg-[#eab308] px-3 py-2 rounded-lg transition-all duration-300 font-medium"
+                    onClick={async () => {
+                      await dispatch(logout());
+                      toast.success("خروج با موفقیت انجام شد.");
+                      navigate("/");
+                    }}
+                  />
                 </div>
               ) : (
                 <Link to="/auth/login">
