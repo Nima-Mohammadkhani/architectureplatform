@@ -344,12 +344,29 @@ export interface IConsultationFormData {
   preferredTime: string;
 }
 
-
-
 export interface IContactFormProps {
   handleSubmit: (e: React.FormEvent) => void;
   formData: IConsultationFormData;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => void;
+  handleChange: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => void;
   selectedService: string;
   selectedConsultant: string;
+}
+
+export interface FormData {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface FormErrors {
+  name?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+  general?: string;
 }

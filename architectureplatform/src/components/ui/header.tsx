@@ -117,13 +117,15 @@ const Header: React.FC = () => {
                   </button>
                 </div>
               ) : (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-gradient-to-r from-yellow-500 to-[#eab308] text-white p-2 text-xs rounded-xl hover:from-[#eab308] hover:to-yellow-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl"
-                >
-                  ورود / ثبت‌نام
-                </motion.button>
+                <Link to="/auth/login">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-gradient-to-r from-yellow-500 to-[#eab308] text-white p-2 text-xs rounded-xl hover:from-[#eab308] hover:to-yellow-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl"
+                  >
+                    ورود / ثبت‌نام
+                  </motion.button>
+                </Link>
               )}
             </div>
 
