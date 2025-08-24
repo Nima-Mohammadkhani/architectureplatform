@@ -4,7 +4,12 @@ import Icon from "../components/ui/Icon";
 import PageHeader from "../components/ui/pageHeader";
 import ContactForm from "../components/contactForm";
 import Card from "../components/ui/card";
-import { IConsultationService, IConsultant, IConsultationFormData } from "../types/ui";
+import {
+  IConsultationService,
+  IConsultant,
+  IConsultationFormData,
+} from "../types/ui";
+import { toast } from "react-toastify";
 
 const Consultation = () => {
   const [selectedService, setSelectedService] = useState<string>("");
@@ -119,16 +124,27 @@ const Consultation = () => {
     },
   ];
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Consultation request:", {
-      selectedService,
-      selectedConsultant,
-      formData,
+    toast.success("درخواست شما با موفقیت ارسال شد.");
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      projectType: "",
+      budget: "",
+      timeline: "",
+      description: "",
+      preferredDate: "",
+      preferredTime: "",
     });
   };
 
@@ -137,7 +153,7 @@ const Consultation = () => {
   };
 
   const handleServiceSelection = (id?: string | number) => {
-    if (typeof id === 'string') {
+    if (typeof id === "string") {
       setSelectedService(id);
     }
   };
@@ -287,7 +303,8 @@ const Consultation = () => {
                     <div className="flex justify-between text-sm">
                       <span>هزینه:</span>
                       <span className="font-medium text-yellow-600">
-                        {formatPrice(selectedServiceData.price)} تومان
+                        {Number(selectedServiceData.price).toLocaleString()}{" "}
+                        تومان
                       </span>
                     </div>
                   </div>
@@ -326,7 +343,7 @@ const Consultation = () => {
                     مشاور انتخاب شده:
                   </h4>
                   <div className="bg-white rounded-lg p-4">
-                    <div className="flex items-center space-x-3 space-x-reverse">
+                    <div className="flex items-center gap-2">
                       <img
                         src={selectedConsultantData.image}
                         alt={selectedConsultantData.name}

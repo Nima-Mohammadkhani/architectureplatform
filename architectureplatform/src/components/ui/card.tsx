@@ -272,11 +272,11 @@ const Card: React.FC<IcardProps> = ({
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex flex-col">
                       <span className="text-xl font-bold text-gray-900">
-                        {product.price} تومان
+                        {Number(product.price).toLocaleString()} تومان
                       </span>
                       {product.originalPrice && (
                         <span className="text-sm text-gray-500 line-through">
-                          {product.originalPrice} تومان
+                          {Number(product.originalPrice).toLocaleString()} تومان
                         </span>
                       )}
                     </div>
@@ -332,7 +332,7 @@ const Card: React.FC<IcardProps> = ({
                 </p>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-yellow-600 font-medium">
-                    {service.price} تومان
+                    {Number(service.price).toLocaleString()} تومان
                   </span>
                   <span className="text-gray-500">{service.duration}</span>
                 </div>
@@ -354,7 +354,7 @@ const Card: React.FC<IcardProps> = ({
                     : "border-gray-200 hover:border-gray-300"
                 }`}
               >
-                <div className="flex items-start space-x-3 space-x-reverse">
+                <div className="flex items-center gap-2">
                   <img
                     src={consultant.image}
                     alt={consultant.name}

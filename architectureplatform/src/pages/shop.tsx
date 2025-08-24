@@ -307,7 +307,7 @@ const Shop = () => {
 
             {sortedProducts.length > 0 && (
               <div className="flex justify-center mt-12">
-                <nav className="flex space-x-2 space-x-reverse">
+                <nav className="flex items-center gap-2">
                   <Button
                     title="قبلی"
                     className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"

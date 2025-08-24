@@ -113,10 +113,6 @@ const Calculator = () => {
     setTotalCost(baseCost + servicesCost);
   };
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("fa-IR").format(price);
-  };
-
   return (
     <div className="py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -189,7 +185,7 @@ const Calculator = () => {
                 >
                   <div className="text-center mb-8">
                     <div className="text-5xl font-light text-yellow-600 mb-2">
-                      {formatPrice(totalCost)}
+                      {Number(totalCost).toLocaleString()}
                     </div>
                     <div className="text-lg text-gray-600">تومان</div>
                   </div>

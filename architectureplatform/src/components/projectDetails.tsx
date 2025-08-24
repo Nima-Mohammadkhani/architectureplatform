@@ -20,10 +20,6 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({
   finishLevel,
   setFinishLevel,
 }) => {
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("fa-IR").format(price);
-  };
-
   const renderContent = () => {
     switch (type) {
       case "area":
@@ -171,7 +167,7 @@ const ProjectDetails: React.FC<IProjectDetailsProps> = ({
                   </div>
                   {service.price > 0 && (
                     <span className="text-sm text-gray-600">
-                      {formatPrice(service.price)} تومان/متر
+                      {Number(service.price).toLocaleString()} تومان
                     </span>
                   )}
                 </label>
