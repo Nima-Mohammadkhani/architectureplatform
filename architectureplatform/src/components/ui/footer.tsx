@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Icon from "../ui/Icon";
+import Button from "./Button";
+import { useState } from "react";
+import { toast } from "react-toastify";
 const Footer = () => {
+  const [news, setNews] = useState<string>("");
   const currentYear = new Date().getFullYear();
 
   const footerSections = [
@@ -193,12 +197,19 @@ const Footer = () => {
             <div className="flex w-full md:w-auto gap-3">
               <input
                 type="email"
+                value={news}
+                onChange={(e) => setNews(e.target.value)}
                 placeholder="ایمیل خود را وارد کنید"
                 className="flex-1 md:w-80 px-4 py-3 bg-white/10 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-300"
               />
-              <button className="bg-yellow-600 hover:bg-yellow-700 text-black font-medium px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                عضویت
-              </button>
+              <Button
+                title="عضویت"
+                onClick={() => {
+                  setNews("");
+                  toast.info("با تشکر از عضویت شما در خبرنامه ما.");
+                }}
+                className="bg-yellow-600 hover:bg-yellow-700 text-black font-medium px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-lg"
+              />
             </div>
           </div>
         </motion.div>
