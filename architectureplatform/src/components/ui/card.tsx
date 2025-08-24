@@ -19,6 +19,7 @@ const Card: React.FC<IcardProps> = ({
   consultants,
   selectedConsultant,
   setSelectedConsultant,
+  onAddToCart,
 }) => {
   const formatPrice = (price: number) =>
     new Intl.NumberFormat("fa-IR").format(price);
@@ -298,6 +299,7 @@ const Card: React.FC<IcardProps> = ({
                     title={product.inStock ? "افزودن به سبد" : "ناموجود"}
                     iconLeft="ShoppingCart"
                     disabled={!product.inStock}
+                    onClick={product.inStock ? () => onAddToCart?.(product) : undefined}
                     className={`w-full py-2 rounded-lg font-medium transition-colors flex items-center justify-center ${
                       product.inStock
                         ? "bg-yellow-600 text-white hover:bg-yellow-700"

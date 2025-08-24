@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Icon from "../ui/Icon";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Button from "./Button";
 import { logout } from "../../redux/slice/user";
 import { toast } from "react-toastify";
@@ -11,8 +11,9 @@ type NavItem = { name: string; path: string };
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
-  const user = useSelector((state) => state.user.user);
-  const dispatch = useDispatch();
+  const user = useAppSelector((state) => state.user.user);
+  const cartCount = useAppSelector((state) => state.cart.items.length);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -96,13 +97,15 @@ const Header: React.FC = () => {
                 name="ShoppingCart"
                 className="w-5 h-5 group-hover:scale-110 transition-transform duration-300"
               />
-              <motion.span
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                className="absolute -top-1 -right-1 bg-[#eab308] text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold shadow-lg"
-              >
-                2
-              </motion.span>
+              {cartCount > 0 && (
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="absolute -top-1 -right-1 bg-[#eab308] text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold shadow-lg"
+                >
+                  {cartCount}
+                </motion.span>
+              )}
             </Link>
 
             <div className="flex items-center gap-2">

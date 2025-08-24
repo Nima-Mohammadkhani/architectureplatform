@@ -5,11 +5,32 @@ import Icon from "../components/ui/Icon";
 import PageHeader from "../components/ui/pageHeader";
 import Card from "../components/ui/card";
 import { Icategories, IsortedProducts } from "../types/ui";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { addToCart } from "../redux/slice/cart";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Shop = () => {
+  const dispatch = useAppDispatch();
+  const { items } = useAppSelector((state) => state.cart);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("newest");
   const [priceRange, setPriceRange] = useState([0, 10000000]);
+
+  const handleAddToCart = (product: any) => {
+    dispatch(
+      addToCart({
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        originalPrice: product.originalPrice,
+        image: product.image,
+        category: product.category,
+      })
+    );
+    toast.success(`${product.title} به سبد خرید اضافه شد`);
+  };
+
   const categories: Icategories[] = [
     { id: "all", name: "همه محصولات" },
     { id: "books", name: "کتاب‌ها" },
@@ -152,6 +173,21 @@ const Shop = () => {
           description="کتاب‌ها، ماکت‌ها و محصولات تخصصی معماری و طراحی"
         />
 
+        <div className="flex justify-end mb-8">
+          <Link
+            to="/cart"
+            className="flex items-center gap-2 bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition-colors"
+          >
+            <Icon name="ShoppingCart" className="w-5 h-5" />
+            <span>سبد خرید</span>
+            {items && items.length > 0 && (
+              <span className="bg-white text-yellow-600 px-2 py-1 rounded-full text-sm font-bold">
+                {items.length}
+              </span>
+            )}
+          </Link>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-1">
             <div className="sticky top-24 bg-gray-50 rounded-lg p-6 space-y-6">
@@ -252,7 +288,11 @@ const Shop = () => {
               className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
             >
               <AnimatePresence>
-                <Card type="shop" sortedProducts={sortedProducts} />
+                <Card
+                  type="shop"
+                  sortedProducts={sortedProducts}
+                  onAddToCart={handleAddToCart}
+                />
               </AnimatePresence>
             </motion.div>
 

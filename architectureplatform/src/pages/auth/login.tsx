@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/ui/Button";
@@ -8,6 +8,7 @@ import { FormData, FormErrors } from "../../types/ui";
 import { useDispatch } from "react-redux";
 import { login, register } from "../../redux/slice/user";
 import { toast } from "react-toastify";
+
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -16,17 +17,86 @@ const Login = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    joinDate: new Date().toISOString(),
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
+  const [userExists, setUserExists] = useState<boolean | null>(null);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // همیشه joinDate را تنظیم کن
+    setFormData(prev => ({
+      ...prev,
+      joinDate: new Date().toISOString()
+    }));
+  }, [isLogin]);
+
+  // Initialize users list from localStorage
+  useEffect(() => {
+    // Check if there's an existing user in localStorage
+    const existingUser = localStorage.getItem("user");
+    if (existingUser) {
+      try {
+        const user = JSON.parse(existingUser);
+        // Add to users list if not already there
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+        const userExists = users.some((u: any) => u.email === user.email);
+        if (!userExists) {
+          users.push(user);
+          localStorage.setItem("users", JSON.stringify(users));
+        }
+      } catch (error) {
+        console.error("Error parsing existing user:", error);
+      }
+    }
+  }, []);
+
+  // Function to check if user exists by email
+  const checkUserExists = (email: string): boolean => {
+    try {
+      const users = JSON.parse(localStorage.getItem("users") || "[]");
+      return users.some((user: any) => user.email === email);
+    } catch {
+      return false;
+    }
+  };
+
+  // Handle email change and check if user exists
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const email = e.target.value;
+    setFormData({ ...formData, email });
+    
+    // Clear previous errors
+    if (errors.email) {
+      setErrors({ ...errors, email: "" });
+    }
+    
+    // Check if user exists when email is valid
+    if (email && /\S+@\S+\.\S+/.test(email)) {
+      const exists = checkUserExists(email);
+      setUserExists(exists);
+      
+      // If user doesn't exist and we're in login mode, force registration
+      if (!exists && isLogin) {
+        setIsLogin(false);
+        toast.info("کاربری با این ایمیل یافت نشد. لطفاً ثبت‌نام کنید.");
+      }
+    } else {
+      setUserExists(null);
+    }
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    if (errors[e.target.name as keyof FormErrors]) {
-      setErrors({ ...errors, [e.target.name]: "" });
+    if (e.target.name === "email") {
+      handleEmailChange(e);
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+      if (errors[e.target.name as keyof FormErrors]) {
+        setErrors({ ...errors, [e.target.name]: "" });
+      }
     }
   };
 
@@ -69,28 +139,52 @@ const Login = () => {
     setLoading(true);
 
     try {
-      let success: boolean = false;
       if (isLogin) {
-        success = await dispatch(login(formData));
+        // For login, user must exist
+        if (!userExists) {
+          toast.error("کاربری با این ایمیل یافت نشد. لطفاً ثبت‌نام کنید.");
+          setIsLogin(false);
+          setLoading(false);
+          return;
+        }
+        
+        dispatch(login(formData));
         toast.success("ورود با موفقیت انجام شد.");
       } else {
-        success = await dispatch(register(formData));
+        // For register, user must not exist
+        if (userExists) {
+          toast.error("کاربری با این ایمیل قبلاً وجود دارد. لطفاً وارد شوید.");
+          setIsLogin(true);
+          setLoading(false);
+          return;
+        }
+        
+        dispatch(register(formData));
         toast.success("ثبت نام با موفقیت انجام شد.");
       }
 
-      if (success) {
-        navigate("/profile");
-      } else {
-        setErrors({
-          general: isLogin
-            ? "ایمیل یا رمز عبور اشتباه است"
-            : "خطا در ثبت‌نام. لطفاً دوباره تلاش کنید",
-        });
-      }
+      // Navigate to profile after successful action
+      navigate("/profile");
     } catch (error: unknown) {
       setErrors({ general: "خطایی رخ داده است. لطفاً دوباره تلاش کنید" });
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Function to handle automatic mode switching
+  const handleAutoModeSwitch = () => {
+    if (formData.email && /\S+@\S+\.\S+/.test(formData.email)) {
+      const exists = checkUserExists(formData.email);
+      if (exists && !isLogin) {
+        // User exists but we're in register mode, switch to login
+        setIsLogin(true);
+        toast.info("کاربری با این ایمیل وجود دارد. لطفاً وارد شوید.");
+      } else if (!exists && isLogin) {
+        // User doesn't exist but we're in login mode, switch to register
+        setIsLogin(false);
+        toast.info("کاربری با این ایمیل یافت نشد. لطفاً ثبت‌نام کنید.");
+      }
     }
   };
 
@@ -101,8 +195,20 @@ const Login = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      joinDate: new Date().toISOString(), // همیشه joinDate را حفظ کن
     });
     setErrors({});
+    setUserExists(null);
+  };
+
+  // Function to clear email and reset state
+  const clearEmailAndReset = () => {
+    setFormData(prev => ({
+      ...prev,
+      email: ""
+    }));
+    setUserExists(null);
+    setErrors(prev => ({ ...prev, email: "" }));
   };
 
   return (
@@ -119,9 +225,14 @@ const Login = () => {
               {isLogin ? "ورود" : "ثبت‌نام"}
             </h1>
             <p className="text-gray-600">
-              {isLogin
-                ? "به حساب کاربری خود وارد شوید"
-                : "حساب کاربری جدید ایجاد کنید"}
+              {formData.email && /\S+@\S+\.\S+/.test(formData.email) && userExists !== null
+                ? userExists 
+                  ? "کاربری با این ایمیل وجود دارد. لطفاً وارد شوید."
+                  : "کاربری با این ایمیل وجود ندارد. لطفاً ثبت‌نام کنید."
+                : isLogin
+                  ? "به حساب کاربری خود وارد شوید"
+                  : "حساب کاربری جدید ایجاد کنید"
+              }
             </p>
           </div>
 
@@ -191,9 +302,57 @@ const Login = () => {
                   }`}
                   placeholder="ایمیل خود را وارد کنید"
                 />
+                {formData.email && (
+                  <button
+                    type="button"
+                    onClick={clearEmailAndReset}
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  >
+                    <Icon name="X" className="w-4 h-4" />
+                  </button>
+                )}
               </div>
               {errors.email && (
                 <p className="text-red-600 text-sm mt-1">{errors.email}</p>
+              )}
+              
+              {/* User existence indicator */}
+              {formData.email && /\S+@\S+\.\S+/.test(formData.email) && userExists !== null && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`mt-2 p-2 rounded-lg text-sm ${
+                    userExists 
+                      ? "bg-green-50 text-green-700 border border-green-200"
+                      : "bg-blue-50 text-blue-700 border border-blue-200"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <Icon 
+                        name={userExists ? "CheckCircle" : "UserPlus"} 
+                        className={`w-4 h-4 ml-2 ${
+                          userExists ? "text-green-600" : "text-blue-600"
+                        }`}
+                      />
+                      <span>
+                        {userExists 
+                          ? "کاربری با این ایمیل وجود دارد. می‌توانید وارد شوید."
+                          : "کاربری با این ایمیل وجود ندارد. لطفاً ثبت‌نام کنید."
+                        }
+                      </span>
+                    </div>
+                    <Button
+                      title={userExists ? "ورود" : "ثبت‌نام"}
+                      onClick={handleAutoModeSwitch}
+                      className={`text-sm px-3 py-1 ${
+                        userExists 
+                          ? "bg-green-600 text-white hover:bg-green-700"
+                          : "bg-blue-600 text-white hover:bg-blue-700"
+                      }`}
+                    />
+                  </div>
+                </motion.div>
               )}
             </div>
 
