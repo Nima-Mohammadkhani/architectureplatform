@@ -4,17 +4,16 @@ import { useAppSelector, useAppDispatch } from "../redux/hooks";
 import { removeFromCart, updateQuantity, clearCart } from "../redux/slice/cart";
 import { toast } from "react-toastify";
 import PageHeader from "../components/ui/pageHeader";
+import { addToCart } from "../redux/slice/cart";
 import Icon from "../components/ui/Icon";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
+import { useState } from "react";
 
 const Cart = () => {
   const dispatch = useAppDispatch();
   const { items, total } = useAppSelector((state) => state.cart);
-
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("fa-IR").format(price);
-  };
+  const [offCode, setOffCode] = useState("");
 
   const handleQuantityChange = (id: number, quantity: number) => {
     dispatch(updateQuantity({ id, quantity }));
@@ -36,6 +35,33 @@ const Cart = () => {
 
   const shippingCost = items.length > 0 ? 50000 : 0;
   const finalTotal = total + shippingCost;
+
+  const product = [
+    {
+      id: 1,
+      title: "کتاب معماری معاصر ایران",
+      price: 450000,
+      image: "/image/product/1.jpeg",
+    },
+    {
+      id: 2,
+      title: "ماکت ویلای مدرن",
+      price: 2800000,
+      image: "/image/product/2.jpeg",
+    },
+    {
+      id: 3,
+      title: "مجموعه تکسچر چوب طبیعی",
+      price: 180000,
+      image: "/image/product/3.webp",
+    },
+    {
+      id: 4,
+      title: "ست خودکار طراحی معماری",
+      price: 320000,
+      image: "image/product/4.jpeg",
+    },
+  ];
 
   if (items.length === 0) {
     return (
@@ -103,7 +129,7 @@ const Cart = () => {
                       transition={{ duration: 0.3 }}
                       className="p-6"
                     >
-                      <div className="flex items-center space-x-4 space-x-reverse">
+                      <div className="flex items-center gap-2">
                         <img
                           src={item.image}
                           alt={item.title}
@@ -115,11 +141,11 @@ const Cart = () => {
                             {item.title}
                           </h4>
                           <p className="text-yellow-600 font-medium mt-1">
-                            {formatPrice(item.price)} تومان
+                            {Number(item.price).toLocaleString()} تومان
                           </p>
                         </div>
 
-                        <div className="flex items-center space-x-2 space-x-reverse">
+                        <div className="flex items-center gap-2">
                           <button
                             onClick={() =>
                               handleQuantityChange(item.id, item.quantity - 1)
@@ -151,16 +177,17 @@ const Cart = () => {
 
                         <div className="text-left">
                           <p className="text-lg font-semibold text-gray-900">
-                            {formatPrice(item.price * item.quantity)} تومان
+                            {Number(
+                              item.price * item.quantity
+                            ).toLocaleString()}{" "}
+                            تومان
                           </p>
                         </div>
-
-                        <button
+                        <Button
+                          title="حذف"
                           onClick={() => handleRemoveFromCart(item.id)}
-                          className="text-red-500 hover:text-red-700 transition-colors"
-                        >
-                          <Icon name="X" className="w-5 h-5" />
-                        </button>
+                          className="btn text-white bg-red-600 hover:text-red-700 text-sm font-medium"
+                        />
                       </div>
                     </motion.div>
                   ))}
@@ -184,7 +211,7 @@ const Cart = () => {
                 <div className="flex justify-between">
                   <span className="text-gray-600">جمع محصولات:</span>
                   <span className="font-semibold">
-                    {formatPrice(total)} تومان
+                    {Number(total).toLocaleString()} تومان
                   </span>
                 </div>
 
@@ -192,7 +219,7 @@ const Cart = () => {
                   <span className="text-gray-600">هزینه ارسال:</span>
                   <span className="font-semibold">
                     {shippingCost > 0
-                      ? `${formatPrice(shippingCost)} تومان`
+                      ? `${Number(shippingCost).toLocaleString()} تومان`
                       : "رایگان"}
                   </span>
                 </div>
@@ -203,7 +230,7 @@ const Cart = () => {
                       مجموع کل:
                     </span>
                     <span className="font-bold text-yellow-600">
-                      {formatPrice(finalTotal)} تومان
+                      {Number(finalTotal).toLocaleString()} تومان
                     </span>
                   </div>
                 </div>
@@ -237,14 +264,20 @@ const Cart = () => {
 
               <div className="mt-6 p-4 bg-green-50 rounded-lg">
                 <h4 className="font-semibold text-green-900 mb-2">کد تخفیف</h4>
-                <div className="flex space-x-2 space-x-reverse">
+                <div className="flex items-center gap-2">
                   <Input
                     type="text"
+                    value={offCode}
+                    onChange={(e) => setOffCode(e.target.value)}
                     placeholder="کد تخفیف خود را وارد کنید"
                     className="flex-1 px-3 py-2 border border-green-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
                   />
                   <Button
                     title="اعمال"
+                    onClick={() => {
+                      setOffCode("");
+                      toast.error("کد تخفیف نامعتبر است.");
+                    }}
                     className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors text-sm font-medium"
                   />
                 </div>
@@ -262,20 +295,32 @@ const Cart = () => {
           <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
             محصولات پیشنهادی
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((item) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {product.map((item) => (
               <div
-                key={item}
-                className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                key={item.id || item.title}
+                className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow w-full"
               >
-                <div className="h-40 bg-gray-200"></div>
+                <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
                 <div className="p-4">
                   <h4 className="font-semibold text-gray-900 mb-2">
-                    محصول پیشنهادی {item}
+                    محصول پیشنهادی {item.title}
                   </h4>
-                  <p className="text-yellow-600 font-medium">۲۵۰,۰۰۰ تومان</p>
+                  <p className="text-yellow-600 font-medium">
+                    {Number(item.price).toLocaleString()} تومان
+                  </p>
                   <Button
                     title="افزودن به سبد"
+                    onClick={() => {
+                      dispatch(addToCart(item));
+                      toast.success(`${item.title} به سبد خرید اضافه شد`);
+                    }}
                     className="w-full mt-3 bg-yellow-600 text-white py-2 rounded hover:bg-yellow-700 transition-colors text-sm"
                   />
                 </div>
