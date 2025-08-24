@@ -120,7 +120,6 @@ const Login = () => {
             </p>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {errors.general && (
               <motion.div
