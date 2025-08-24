@@ -27,21 +27,17 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // همیشه joinDate را تنظیم کن
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      joinDate: new Date().toISOString()
+      joinDate: new Date().toISOString(),
     }));
   }, [isLogin]);
 
-  // Initialize users list from localStorage
   useEffect(() => {
-    // Check if there's an existing user in localStorage
     const existingUser = localStorage.getItem("user");
     if (existingUser) {
       try {
         const user = JSON.parse(existingUser);
-        // Add to users list if not already there
         const users = JSON.parse(localStorage.getItem("users") || "[]");
         const userExists = users.some((u: any) => u.email === user.email);
         if (!userExists) {
@@ -54,7 +50,6 @@ const Login = () => {
     }
   }, []);
 
-  // Function to check if user exists by email
   const checkUserExists = (email: string): boolean => {
     try {
       const users = JSON.parse(localStorage.getItem("users") || "[]");
@@ -64,22 +59,18 @@ const Login = () => {
     }
   };
 
-  // Handle email change and check if user exists
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const email = e.target.value;
     setFormData({ ...formData, email });
-    
-    // Clear previous errors
+
     if (errors.email) {
       setErrors({ ...errors, email: "" });
     }
-    
-    // Check if user exists when email is valid
+
     if (email && /\S+@\S+\.\S+/.test(email)) {
       const exists = checkUserExists(email);
       setUserExists(exists);
-      
-      // If user doesn't exist and we're in login mode, force registration
+
       if (!exists && isLogin) {
         setIsLogin(false);
         toast.info("کاربری با این ایمیل یافت نشد. لطفاً ثبت‌نام کنید.");
@@ -140,30 +131,27 @@ const Login = () => {
 
     try {
       if (isLogin) {
-        // For login, user must exist
         if (!userExists) {
           toast.error("کاربری با این ایمیل یافت نشد. لطفاً ثبت‌نام کنید.");
           setIsLogin(false);
           setLoading(false);
           return;
         }
-        
+
         dispatch(login(formData));
         toast.success("ورود با موفقیت انجام شد.");
       } else {
-        // For register, user must not exist
         if (userExists) {
           toast.error("کاربری با این ایمیل قبلاً وجود دارد. لطفاً وارد شوید.");
           setIsLogin(true);
           setLoading(false);
           return;
         }
-        
+
         dispatch(register(formData));
         toast.success("ثبت نام با موفقیت انجام شد.");
       }
 
-      // Navigate to profile after successful action
       navigate("/profile");
     } catch (error: unknown) {
       setErrors({ general: "خطایی رخ داده است. لطفاً دوباره تلاش کنید" });
@@ -172,16 +160,13 @@ const Login = () => {
     }
   };
 
-  // Function to handle automatic mode switching
   const handleAutoModeSwitch = () => {
     if (formData.email && /\S+@\S+\.\S+/.test(formData.email)) {
       const exists = checkUserExists(formData.email);
       if (exists && !isLogin) {
-        // User exists but we're in register mode, switch to login
         setIsLogin(true);
         toast.info("کاربری با این ایمیل وجود دارد. لطفاً وارد شوید.");
       } else if (!exists && isLogin) {
-        // User doesn't exist but we're in login mode, switch to register
         setIsLogin(false);
         toast.info("کاربری با این ایمیل یافت نشد. لطفاً ثبت‌نام کنید.");
       }
@@ -195,24 +180,23 @@ const Login = () => {
       email: "",
       password: "",
       confirmPassword: "",
-      joinDate: new Date().toISOString(), // همیشه joinDate را حفظ کن
+      joinDate: new Date().toISOString(),
     });
     setErrors({});
     setUserExists(null);
   };
 
-  // Function to clear email and reset state
   const clearEmailAndReset = () => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      email: ""
+      email: "",
     }));
     setUserExists(null);
-    setErrors(prev => ({ ...prev, email: "" }));
+    setErrors((prev) => ({ ...prev, email: "" }));
   };
 
   return (
-    <div className="py-20">
+    <div className="flex flex-col items-center justify-center mt-20 mb-4">
       <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -225,14 +209,15 @@ const Login = () => {
               {isLogin ? "ورود" : "ثبت‌نام"}
             </h1>
             <p className="text-gray-600">
-              {formData.email && /\S+@\S+\.\S+/.test(formData.email) && userExists !== null
-                ? userExists 
+              {formData.email &&
+              /\S+@\S+\.\S+/.test(formData.email) &&
+              userExists !== null
+                ? userExists
                   ? "کاربری با این ایمیل وجود دارد. لطفاً وارد شوید."
                   : "کاربری با این ایمیل وجود ندارد. لطفاً ثبت‌نام کنید."
                 : isLogin
-                  ? "به حساب کاربری خود وارد شوید"
-                  : "حساب کاربری جدید ایجاد کنید"
-              }
+                ? "به حساب کاربری خود وارد شوید"
+                : "حساب کاربری جدید ایجاد کنید"}
             </p>
           </div>
 
@@ -315,45 +300,45 @@ const Login = () => {
               {errors.email && (
                 <p className="text-red-600 text-sm mt-1">{errors.email}</p>
               )}
-              
-              {/* User existence indicator */}
-              {formData.email && /\S+@\S+\.\S+/.test(formData.email) && userExists !== null && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`mt-2 p-2 rounded-lg text-sm ${
-                    userExists 
-                      ? "bg-green-50 text-green-700 border border-green-200"
-                      : "bg-blue-50 text-blue-700 border border-blue-200"
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Icon 
-                        name={userExists ? "CheckCircle" : "UserPlus"} 
-                        className={`w-4 h-4 ml-2 ${
-                          userExists ? "text-green-600" : "text-blue-600"
+
+              {formData.email &&
+                /\S+@\S+\.\S+/.test(formData.email) &&
+                userExists !== null && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`mt-2 p-2 rounded-lg text-sm ${
+                      userExists
+                        ? "bg-green-50 text-green-700 border border-green-200"
+                        : "bg-blue-50 text-blue-700 border border-blue-200"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <Icon
+                          name={userExists ? "CheckCircle" : "UserPlus"}
+                          className={`w-4 h-4 ml-2 ${
+                            userExists ? "text-green-600" : "text-blue-600"
+                          }`}
+                        />
+                        <span>
+                          {userExists
+                            ? "کاربری با این ایمیل وجود دارد. می‌توانید وارد شوید."
+                            : "کاربری با این ایمیل وجود ندارد. لطفاً ثبت‌نام کنید."}
+                        </span>
+                      </div>
+                      <Button
+                        title={userExists ? "ورود" : "ثبت‌نام"}
+                        onClick={handleAutoModeSwitch}
+                        className={`text-sm px-3 py-1 ${
+                          userExists
+                            ? "bg-green-600 text-white hover:bg-green-700"
+                            : "bg-blue-600 text-white hover:bg-blue-700"
                         }`}
                       />
-                      <span>
-                        {userExists 
-                          ? "کاربری با این ایمیل وجود دارد. می‌توانید وارد شوید."
-                          : "کاربری با این ایمیل وجود ندارد. لطفاً ثبت‌نام کنید."
-                        }
-                      </span>
                     </div>
-                    <Button
-                      title={userExists ? "ورود" : "ثبت‌نام"}
-                      onClick={handleAutoModeSwitch}
-                      className={`text-sm px-3 py-1 ${
-                        userExists 
-                          ? "bg-green-600 text-white hover:bg-green-700"
-                          : "bg-blue-600 text-white hover:bg-blue-700"
-                      }`}
-                    />
-                  </div>
-                </motion.div>
-              )}
+                  </motion.div>
+                )}
             </div>
 
             <div>

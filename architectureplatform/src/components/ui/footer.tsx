@@ -186,7 +186,7 @@ const Footer = () => {
           className="py-8 border-t border-gray-700"
         >
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
+            <div className="flex flex-col justify-start w-full ">
               <h4 className="text-lg font-semibold text-white mb-2">
                 خبرنامه ما
               </h4>

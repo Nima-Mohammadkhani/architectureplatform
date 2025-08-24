@@ -65,7 +65,7 @@ const Cart = () => {
 
   if (items.length === 0) {
     return (
-      <div className="py-20">
+      <div className="flex flex-col min-h-screen justify-center items-center py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -74,7 +74,8 @@ const Cart = () => {
           >
             <Icon
               name="ShoppingBag"
-              className="w-24 h-24 text-gray-300 mx-auto mb-8"
+              size="lg"
+              className="text-gray-300 mx-auto mb-8"
             />
             <h1 className="text-4xl font-light text-gray-900 mb-4">
               سبد خرید شما خالی است
