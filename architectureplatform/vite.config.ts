@@ -7,6 +7,7 @@ import { VitePWA } from "vite-plugin-pwa";
 export default defineConfig({
   plugins: [
     react(),
+
     tailwindcss(),
     Pages({
       dirs: "src/pages",
@@ -39,4 +40,10 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    host: true, // یا '0.0.0.0'
+    port: 5173,
+    strictPort: true,
+    allowedHosts: ["hermescript.ir", "localhost", "127.0.0.1"],
+  },
 });
