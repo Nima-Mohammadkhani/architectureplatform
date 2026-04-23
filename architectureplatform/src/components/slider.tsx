@@ -12,7 +12,7 @@ const slides: ISlide[] = [
     subtitle: "آینده‌نگر و پایدار",
     description:
       "ما فضاهایی طراحی می‌کنیم که زندگی را بهتر می‌کند. از خانه‌های مسکونی تا فضاهای تجاری، با نگاهی نو و مدرن.",
-    image: "/image/slider/1.webp",
+    image: "/architectureplatform/image/slider/1.webp",
     ctaText: "مشاهده نمونه‌کارها",
     ctaLink: "/gallery",
     category: "معماری",
@@ -23,7 +23,7 @@ const slides: ISlide[] = [
     subtitle: "زیبایی و کارایی",
     description:
       "ترکیب هنر و علم برای ایجاد فضاهای داخلی که هم زیبا هستند و هم کاربردی. از مینیمال تا لوکس.",
-    image: "/image/slider/2.jpeg",
+    image: "/architectureplatform/image/slider/2.jpeg",
     ctaText: "شروع پروژه",
     ctaLink: "/consultation",
     category: "دکوراسیون",
@@ -34,7 +34,7 @@ const slides: ISlide[] = [
     subtitle: "محیط زیست دوست",
     description:
       "معماری پایدار که با طبیعت هماهنگ است. استفاده از انرژی‌های تجدیدپذیر و مصالح دوستدار محیط زیست.",
-    image: "/image/slider/3.webp",
+    image: "/architectureplatform/image/slider/3.webp",
     ctaText: "مشاوره رایگان",
     ctaLink: "/calculator",
     category: "پایدار",
@@ -45,7 +45,7 @@ const slides: ISlide[] = [
     subtitle: "شهرهای آینده",
     description:
       "طراحی فضاهای شهری که زندگی اجتماعی را بهبود می‌بخشد. پارک‌ها، پیاده‌روها و فضاهای عمومی.",
-    image: "/image/slider/4.jpeg",
+    image: "/architectureplatform/image/slider/4.jpeg",
     ctaText: "مشاهده پروژه‌ها",
     ctaLink: "/gallery",
     category: "شهری",

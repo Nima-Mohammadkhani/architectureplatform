@@ -5,9 +5,9 @@ import Pages from "vite-plugin-pages";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
+  base: "/architectureplatform/",
   plugins: [
     react(),
-
     tailwindcss(),
     Pages({
       dirs: "src/pages",
@@ -41,9 +41,9 @@ export default defineConfig({
     }),
   ],
   server: {
-    host: true, // یا '0.0.0.0'
+    host: true,
     port: 5173,
     strictPort: true,
-    allowedHosts: ["hermescript.ir", "localhost", "127.0.0.1"],
+    allowedHosts: ["bestoffice.ir", "localhost", "127.0.0.1"],
   },
 });

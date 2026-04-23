@@ -32,7 +32,7 @@ const Blog = () => {
       author: "مهندس احمدی",
       date: "1403/12/10",
       readTime: "8 دقیقه",
-      image: "/image/slider/1.webp",
+      image: "/architectureplatform/image/slider/1.webp",
       tags: ["معماری مدرن", "طراحی", "ایران"],
     },
     {
@@ -45,7 +45,7 @@ const Blog = () => {
       author: "مریم صالحی",
       date: "1403/12/08",
       readTime: "6 دقیقه",
-      image: "/image/slider/3.webp",
+      image: "/architectureplatform/image/slider/3.webp",
       tags: ["مینیمال", "طراحی داخلی", "دکوراسیون"],
     },
     {
@@ -58,7 +58,7 @@ const Blog = () => {
       author: "دکتر رضایی",
       date: "1403/12/05",
       readTime: "10 دقیقه",
-      image: "/image/slider/2.jpeg",
+      image: "/architectureplatform/image/slider/2.jpeg",
       tags: ["نور طبیعی", "معماری", "طراحی"],
     },
     {
@@ -70,7 +70,7 @@ const Blog = () => {
       author: "سارا احمدی",
       date: "1403/12/02",
       readTime: "5 دقیقه",
-      image: "/image/slider/4.jpeg",
+      image: "/architectureplatform/image/slider/4.jpeg",
       tags: ["رنگ", "ترند", "دکوراسیون"],
     },
     {
@@ -83,7 +83,7 @@ const Blog = () => {
       author: "علی موسوی",
       date: "1403/11/28",
       readTime: "7 دقیقه",
-      image: "/image/slider/3.webp",
+      image: "/architectureplatform/image/slider/3.webp",
       tags: ["مبلمان", "انتخاب", "طراحی داخلی"],
     },
     {
@@ -95,7 +95,7 @@ const Blog = () => {
       author: "مهندس کریمی",
       date: "1403/11/25",
       readTime: "9 دقیقه",
-      image: "/image/slider/1.webp",
+      image: "/architectureplatform/image/slider/1.webp",
       tags: ["معماری پایدار", "محیط زیست", "معماری سبز"],
     },
   ];
@@ -107,7 +107,7 @@ const Blog = () => {
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.tags.some((tag) =>
-        tag.toLowerCase().includes(searchTerm.toLowerCase())
+        tag.toLowerCase().includes(searchTerm.toLowerCase()),
       );
     return matchesCategory && matchesSearch;
   });
@@ -279,7 +279,7 @@ const Blog = () => {
                         className="bg-white text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-yellow-600 hover:text-white transition-colors"
                         onClick={() => setSearchTerm(tag)}
                       />
-                    )
+                    ),
                   )}
                 </div>
               </div>

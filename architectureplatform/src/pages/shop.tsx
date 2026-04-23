@@ -26,7 +26,7 @@ const Shop = () => {
         originalPrice: product.originalPrice,
         image: product.image,
         category: product.category,
-      })
+      }),
     );
     toast.success(`${product.title} به سبد خرید اضافه شد`);
   };
@@ -46,7 +46,7 @@ const Shop = () => {
       category: "books",
       price: 450000,
       originalPrice: 500000,
-      image: "/image/product/1.jpeg",
+      image: "/architectureplatform/image/product/1.jpeg",
       rating: 4.8,
       reviews: 24,
       description: "مجموعه‌ای جامع از بهترین آثار معماری معاصر ایران",
@@ -59,7 +59,7 @@ const Shop = () => {
       category: "models",
       price: 2800000,
       originalPrice: 3200000,
-      image: "/image/product/2.jpeg",
+      image: "/architectureplatform/image/product/2.jpeg",
       rating: 4.9,
       reviews: 12,
       description: "ماکت تفصیلی ویلای مدرن و زیبا با جزئیات کامل",
@@ -71,7 +71,7 @@ const Shop = () => {
       title: "مجموعه تکسچر چوب طبیعی",
       category: "materials",
       price: 180000,
-      image: "/image/product/3.webp",
+      image: "/architectureplatform/image/product/3.webp",
       rating: 4.6,
       reviews: 31,
       description: "مجموعه کامل تکسچر چوب با کیفیت بالا برای رندر",

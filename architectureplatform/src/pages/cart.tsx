@@ -42,21 +42,21 @@ const Cart = () => {
       title: "کتاب معماری معاصر ایران",
       price: 450000,
       category: "book",
-      image: "/image/product/1.jpeg",
+      image: "/architectureplatform/image/product/1.jpeg",
     },
     {
       id: 2,
       title: "ماکت ویلای مدرن",
       price: 2800000,
       category: "model",
-      image: "/image/product/2.jpeg",
+      image: "/architectureplatform/image/product/2.jpeg",
     },
     {
       id: 3,
       title: "مجموعه تکسچر چوب طبیعی",
       price: 180000,
       category: "texture",
-      image: "/image/product/3.webp",
+      image: "/architectureplatform/image/product/3.webp",
     },
     {
       id: 4,
@@ -183,7 +183,7 @@ const Cart = () => {
                         <div className="text-left">
                           <p className="text-lg font-semibold text-gray-900">
                             {Number(
-                              item.price * item.quantity
+                              item.price * item.quantity,
                             ).toLocaleString()}{" "}
                             تومان
                           </p>

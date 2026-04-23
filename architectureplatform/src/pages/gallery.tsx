@@ -9,7 +9,7 @@ import GalleryModal from "../components/galleyModal";
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedProject, setSelectedProject] = useState<Iprojects | null>(
-    null
+    null,
   );
   const [searchTerm, setSearchTerm] = useState<string>("");
 
@@ -29,12 +29,12 @@ const Gallery = () => {
       area: "450 متر مربع",
       year: "2024",
       location: "شمال ایران",
-      image: "/image/slider/1.webp",
+      image: "/architectureplatform/image/slider/1.webp",
       description: "طراحی ویلای مدرن با استفاده از مصالح محلی و معماری معاصر",
       gallery: [
-        "/image/slider/1.webp",
-        "/image/slider/2.jpeg",
-        "/image/slider/3.webp",
+        "/architectureplatform/image/slider/1.webp",
+        "/architectureplatform/image/slider/2.jpeg",
+        "/architectureplatform/image/slider/3.webp",
       ],
     },
     {
@@ -44,9 +44,12 @@ const Gallery = () => {
       area: "2500 متر مربع",
       year: "2023",
       location: "تهران",
-      image: "/image/slider/4.jpeg",
+      image: "/architectureplatform/image/slider/4.jpeg",
       description: "طراحی مجتمع تجاری با رویکرد پایدار و انرژی سبز",
-      gallery: ["/image/slider/4.jpeg", "/image/slider/1.webp"],
+      gallery: [
+        "/architectureplatform/image/slider/4.jpeg",
+        "/architectureplatform/image/slider/1.webp",
+      ],
     },
     {
       id: 3,
@@ -55,9 +58,12 @@ const Gallery = () => {
       area: "120 متر مربع",
       year: "2024",
       location: "تهران",
-      image: "/image/slider/2.jpeg",
+      image: "/architectureplatform/image/slider/2.jpeg",
       description: "طراحی داخلی مینیمال با تأکید بر نور طبیعی",
-      gallery: ["/image/slider/2.jpeg", "/image/slider/3.webp"],
+      gallery: [
+        "/architectureplatform/image/slider/2.jpeg",
+        "/architectureplatform/image/slider/3.webp",
+      ],
     },
     {
       id: 4,
@@ -66,9 +72,12 @@ const Gallery = () => {
       area: "800 متر مربع",
       year: "2024",
       location: "طراحی مفهومی",
-      image: "/image/slider/3.webp",
+      image: "/architectureplatform/image/slider/3.webp",
       description: "طراحی مفهومی برای فضای کاری هوشمند و انطباق‌پذیر",
-      gallery: ["/image/slider/3.webp", "/image/slider/1.webp"],
+      gallery: [
+        "/architectureplatform/image/slider/3.webp",
+        "/architectureplatform/image/slider/1.webp",
+      ],
     },
     {
       id: 5,
@@ -77,9 +86,12 @@ const Gallery = () => {
       area: "350 متر مربع",
       year: "2023",
       location: "اصفهان",
-      image: "/image/slider/1.webp",
+      image: "/architectureplatform/image/slider/1.webp",
       description: "ترکیب معماری سنتی ایرانی با عناصر مدرن",
-      gallery: ["/image/slider/1.webp", "/image/slider/1.webp"],
+      gallery: [
+        "/architectureplatform/image/slider/1.webp",
+        "/architectureplatform/image/slider/1.webp",
+      ],
     },
     {
       id: 6,
@@ -88,9 +100,9 @@ const Gallery = () => {
       area: "200 متر مربع",
       year: "2023",
       location: "شیراز",
-      image: "/image/slider/3.webp",
+      image: "/architectureplatform/image/slider/3.webp",
       description: "طراحی داخلی رستوران با الهام از فرهنگ محلی",
-      gallery: ["/image/slider/3.webp"],
+      gallery: ["/architectureplatform/image/slider/3.webp"],
     },
   ];
 
