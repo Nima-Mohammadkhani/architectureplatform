@@ -1,4 +1,4 @@
-import { BrowserRouter, useRoutes } from "react-router-dom";
+import { HashRouter, useRoutes } from "react-router-dom";
 import routes from "virtual:generated-pages-react";
 import PWABadge from "./PWABadge.tsx";
 import Header from "./components/ui/header.tsx";
@@ -17,7 +17,7 @@ function AppRoutes() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <PWABadge />
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <div className="w-full min-h-screen flex flex-col bg-base-200">
@@ -30,7 +30,7 @@ function App() {
         <Scroll />
         <ScrollToTop />
       </ErrorBoundary>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
